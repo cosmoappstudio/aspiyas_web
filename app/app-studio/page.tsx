@@ -2,6 +2,8 @@ import Link from "next/link";
 import { PageLayout } from "@/components/PageLayout";
 import { getAppStudio } from "@/lib/getAppStudio";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "App Studio — Aspiyas | Dijital Ürün & AI Araç Geliştirme",
   description:
