@@ -1,5 +1,5 @@
 import { unstable_noStore } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/server";
 
 export type ContentMap = Record<string, string>;
 
@@ -9,7 +9,7 @@ export type ContentMap = Record<string, string>;
 export async function getContent(lang?: "tr" | "en"): Promise<ContentMap> {
   unstable_noStore();
   try {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data, error } = await supabase
       .from("content")
       .select("key, value, lang");

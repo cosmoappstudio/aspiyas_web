@@ -1,5 +1,5 @@
 import { unstable_noStore } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/server";
 
 export type FooterProduct = {
   id: string;
@@ -14,7 +14,7 @@ const FALLBACK: FooterProduct[] = [
 export async function getFooterProducts(): Promise<FooterProduct[]> {
   unstable_noStore();
   try {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data } = await supabase
       .from("footer_products")
       .select("id, name, url")

@@ -1,5 +1,5 @@
 import { unstable_noStore } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/server";
 import { getContent } from "@/lib/getContent";
 
 export type AppStudioWhat = {
@@ -61,7 +61,7 @@ const FALLBACK_HOW: AppStudioHow[] = [
 
 async function fetchWhat(lang: "tr" | "en"): Promise<AppStudioWhat[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data } = await supabase
       .from("app_studio_what")
       .select("*")
@@ -81,7 +81,7 @@ async function fetchWhat(lang: "tr" | "en"): Promise<AppStudioWhat[]> {
 
 async function fetchHow(lang: "tr" | "en"): Promise<AppStudioHow[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data } = await supabase
       .from("app_studio_how")
       .select("*")
