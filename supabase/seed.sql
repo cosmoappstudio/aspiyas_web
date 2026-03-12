@@ -130,7 +130,9 @@ insert into contact_form_options (option_type, value, sort_order) values
 -- SITE_SETTINGS
 insert into site_settings (key, value) values
   ('site_name', 'Aspiyas'),
-  ('site_tagline', 'We build products. We grow brands.')
+  ('site_tagline', 'We build products. We grow brands.'),
+  ('meta_title', 'Aspiyas — Dijital Büyüme & SaaS Tech House | Antalya, Türkiye'),
+  ('meta_description', 'Aspiyas; Shoovo UGC platformu, performans pazarlama ve AI araç geliştirme hizmetleriyle Türk markalarını büyüten bir teknoloji şirketidir. Antalya merkezli, global vizyonlu.')
 on conflict (key) do update set value = excluded.value;
 
 -- CONTENT (ana metin blokları — key unique, lang ile ayrım)

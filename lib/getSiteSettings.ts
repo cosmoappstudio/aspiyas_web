@@ -6,11 +6,17 @@ export type SiteSettings = {
   site_tagline: string;
   logo_url?: string;
   favicon_url?: string;
+  meta_title?: string;
+  meta_description?: string;
+  og_image_url?: string;
 };
 
 const FALLBACK: SiteSettings = {
   site_name: "Aspiyas",
   site_tagline: "We build products. We grow brands.",
+  meta_title: "Aspiyas — Dijital Büyüme & SaaS Tech House | Antalya, Türkiye",
+  meta_description:
+    "Aspiyas; Shoovo UGC platformu, performans pazarlama ve AI araç geliştirme hizmetleriyle Türk markalarını büyüten bir teknoloji şirketidir. Antalya merkezli, global vizyonlu.",
 };
 
 async function fetchSiteSettings(): Promise<SiteSettings> {
@@ -31,6 +37,9 @@ async function fetchSiteSettings(): Promise<SiteSettings> {
       site_tagline: map.site_tagline ?? FALLBACK.site_tagline,
       logo_url: map.logo_url,
       favicon_url: map.favicon_url,
+      meta_title: map.meta_title ?? FALLBACK.meta_title,
+      meta_description: map.meta_description ?? FALLBACK.meta_description,
+      og_image_url: map.og_image_url,
     };
   } catch {
     return FALLBACK;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { getSiteSettings } from "@/lib/getSiteSettings";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
@@ -14,11 +15,39 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Aspiyas — Dijital Büyüme & SaaS Tech House | Antalya, Türkiye",
-  description:
-    "Aspiyas; Shoovo UGC platformu, performans pazarlama ve AI araç geliştirme hizmetleriyle Türk markalarını büyüten bir teknoloji şirketidir. Antalya merkezli, global vizyonlu.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const title =
+    settings.meta_title ??
+    "Aspiyas — Dijital Büyüme & SaaS Tech House | Antalya, Türkiye";
+  const description =
+    settings.meta_description ??
+    "Aspiyas; Shoovo UGC platformu, performans pazarlama ve AI araç geliştirme hizmetleriyle Türk markalarını büyüten bir teknoloji şirketidir. Antalya merkezli, global vizyonlu.";
+
+  const metadata: Metadata = {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...(settings.og_image_url && {
+        images: [{ url: settings.og_image_url }],
+      }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(settings.og_image_url && { images: [settings.og_image_url] }),
+    },
+  };
+
+  if (settings.favicon_url) {
+    metadata.icons = { icon: settings.favicon_url };
+  }
+
+  return metadata;
+}
 
 export default function RootLayout({
   children,
