@@ -1,6 +1,4 @@
 import { Navbar } from "@/components/Navbar";
-
-export const dynamic = "force-dynamic";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { Products } from "@/components/Products";
@@ -20,16 +18,24 @@ import { getPartners } from "@/lib/getPartners";
 import { getServices } from "@/lib/getServices";
 import { getSiteSettings } from "@/lib/getSiteSettings";
 import { getStats } from "@/lib/getStats";
+import type { Locale } from "@/lib/i18n";
 
-export default async function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
   const [faqs, settings, brands, content, stats, services, partners, contactInfo, footerProducts] =
     await Promise.all([
       getFaqs(),
       getSiteSettings(),
       getBrands(),
-      getContent("tr"),
+      getContent(locale),
       getStats(),
-      getServices("tr"),
+      getServices(locale),
       getPartners(),
       getContactInfo(),
       getFooterProducts(),
@@ -38,27 +44,27 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-[#03050d] text-[#eef0f6] overflow-x-hidden">
-      {/* FAQPage JSON-LD — GEO / AI search optimizasyonu */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <Navbar logoUrl={settings.logo_url} />
-      <Hero content={content} stats={stats} />
+      <Navbar logoUrl={settings.logo_url} locale={locale} />
+      <Hero content={content} stats={stats} locale={locale} />
       <Marquee brands={brands} />
-      <Products content={content} stats={stats} />
-      <Services content={content} services={services} />
-      <Partners content={content} partners={partners} />
-      <FAQ items={faqs} />
-      <WhyAspiyas content={content} stats={stats} />
-      <CTASection content={content} />
+      <Products content={content} stats={stats} locale={locale} />
+      <Services content={content} services={services} locale={locale} />
+      <Partners content={content} partners={partners} locale={locale} />
+      <FAQ items={faqs} locale={locale} content={content} />
+      <WhyAspiyas content={content} stats={stats} locale={locale} />
+      <CTASection content={content} locale={locale} />
       <Footer
         logoUrl={settings.logo_url}
-        siteTagline={settings.site_tagline}
+        siteTagline={content["footer.tagline"] ?? settings.site_tagline}
         email={contactInfo.email}
         socialLinks={contactInfo.socialLinks}
         products={footerProducts}
+        locale={locale}
       />
     </div>
   );

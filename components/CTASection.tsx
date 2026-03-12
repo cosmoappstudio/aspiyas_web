@@ -6,9 +6,10 @@ import type { ContentMap } from "@/lib/getContent";
 
 type CTASectionProps = {
   content?: ContentMap;
+  locale?: "tr" | "en";
 };
 
-export function CTASection({ content }: CTASectionProps) {
+export function CTASection({ content, locale = "tr" }: CTASectionProps) {
   const title = content?.["cta.title"] ?? "Büyümeye Hazır mısınız?";
   const subtext = content?.["cta.subtext"] ?? "Ücretsiz dijital denetim ile başlayın. Büyüme fırsatlarınızı birlikte keşfedelim.";
   const cta = content?.["cta.cta"] ?? "Teklif Al →";
@@ -40,16 +41,16 @@ export function CTASection({ content }: CTASectionProps) {
           </p>
           <div className="flex gap-3 flex-wrap">
             <Link
-              href="/iletisim"
+              href={`/${locale}/iletisim`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#03050d] font-extrabold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all"
             >
               {cta}
             </Link>
             <Link
-              href="/iletisim"
+              href={`/${locale}/iletisim`}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/20 text-[#8892a4] font-bold text-sm hover:border-white/30 hover:text-white transition-all"
             >
-              Demo Talep Et
+              {locale === "en" ? "Request Demo" : "Demo Talep Et"}
             </Link>
           </div>
         </motion.div>

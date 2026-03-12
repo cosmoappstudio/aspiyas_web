@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Linkedin, Twitter, Instagram } from "lucide-react";
 import type { SocialLinks } from "@/lib/getContactInfo";
 import type { FooterProduct } from "@/lib/getFooterProducts";
+import { tr } from "@/lib/translations";
+import { isValidLocale, type Locale } from "@/lib/i18n";
 
 interface FooterProps {
   logoUrl?: string | null;
@@ -9,21 +14,15 @@ interface FooterProps {
   email?: string;
   socialLinks?: SocialLinks;
   products?: FooterProduct[];
+  locale?: Locale;
 }
 
-const servicesLinks = [
-  { label: "Performans Pazarlama", href: "#services" },
-  { label: "UGC", href: "#shoovo" },
-  { label: "Sosyal Medya", href: "#services" },
-  { label: "AI", href: "#services" },
-  { label: "Dijital Denetim", href: "#services" },
-];
-
-const companyLinks = [
-  { label: "Hakkımızda", href: "#why" },
-  { label: "App Studio", href: "/app-studio" },
-  { label: "İletişim", href: "/iletisim" },
-  { label: "KVKK", href: "#" },
+const servicesLinkKeys = [
+  { labelKey: "perfMarketing" as const, href: "#services" },
+  { labelKey: "ugc" as const, href: "#shoovo" },
+  { labelKey: "socialMedia" as const, href: "#services" },
+  { labelKey: "ai" as const, href: "#services" },
+  { labelKey: "digitalAudit" as const, href: "#services" },
 ];
 
 const socialIcons = [
@@ -38,7 +37,23 @@ export function Footer({
   email = "hello@aspiyas.com",
   socialLinks,
   products = [],
+  locale: localeProp,
 }: FooterProps = {}) {
+  const pathname = usePathname();
+  const pathLocale = pathname?.startsWith("/en") ? "en" : "tr";
+  const locale: Locale = localeProp ?? (isValidLocale(pathLocale) ? pathLocale : "tr");
+  const base = `/${locale}`;
+  const companyLinks = [
+    { label: tr("footer", "about", locale), href: `${base}#why` },
+    { label: "App Studio", href: `${base}/app-studio` },
+    { label: tr("footer", "contact", locale), href: `${base}/iletisim` },
+    { label: "KVKK", href: "#" },
+  ];
+  const servicesLinksWithBase = servicesLinkKeys.map((l) => ({
+    ...l,
+    label: tr("footer", l.labelKey, locale),
+    href: `${base}${l.href}`,
+  }));
   return (
     <footer className="bg-[#03050d] border-t border-white/[0.06] pt-20 pb-10 px-6 md:px-12">
       <div className="max-w-[1200px] mx-auto">
@@ -55,7 +70,7 @@ export function Footer({
               )}
             </div>
             <p className="text-[#8892a4] text-sm leading-relaxed mb-6 whitespace-pre-line">
-              {siteTagline}{"\n\n"}Antalya, Türkiye
+              {siteTagline}{"\n\n"}{tr("footer", "antalya", locale)}
               <br />
               <a
                 href={`mailto:${email}`}
@@ -87,7 +102,7 @@ export function Footer({
           {/* Products */}
           <div>
             <h5 className="text-xs font-bold uppercase tracking-wider text-white/40 mb-4">
-              Ürünler
+              {tr("footer", "products", locale)}
             </h5>
             <ul className="space-y-2.5">
               {products.map((p) => (
@@ -108,10 +123,10 @@ export function Footer({
           {/* Services */}
           <div>
             <h5 className="text-xs font-bold uppercase tracking-wider text-white/40 mb-4">
-              Hizmetler
+              {tr("footer", "services", locale)}
             </h5>
             <ul className="space-y-2.5">
-              {servicesLinks.map((link) => (
+              {servicesLinksWithBase.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -127,7 +142,7 @@ export function Footer({
           {/* Company */}
           <div>
             <h5 className="text-xs font-bold uppercase tracking-wider text-white/40 mb-4">
-              Şirket
+              {tr("footer", "company", locale)}
             </h5>
             <ul className="space-y-2.5">
               {companyLinks.map((link) => (

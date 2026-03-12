@@ -27,14 +27,18 @@ const item = {
 type HeroProps = {
   content?: ContentMap;
   stats?: Stat[];
+  locale?: "tr" | "en";
 };
 
-export function Hero({ content, stats }: HeroProps) {
+export function Hero({ content, stats, locale = "tr" }: HeroProps) {
   const heroStats = stats?.length
     ? stats
         .filter((s) => ["brands", "budget", "years"].includes(s.key))
         .slice(0, 3)
-        .map((s) => ({ value: s.value, label: s.label_tr }))
+        .map((s) => ({
+          value: s.value,
+          label: locale === "en" ? s.label_en : s.label_tr,
+        }))
     : FALLBACK_STATS;
 
   const eyebrow = content?.["hero.eyebrow"] ?? "Antalya · Türkiye · Tech House";

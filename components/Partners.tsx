@@ -3,15 +3,18 @@
 import { motion } from "framer-motion";
 import type { ContentMap } from "@/lib/getContent";
 import type { Partner } from "@/lib/getPartners";
+import { tr } from "@/lib/translations";
+import type { Locale } from "@/lib/i18n";
 
 type PartnersProps = {
   content?: ContentMap;
   partners: Partner[];
+  locale?: Locale;
 };
 
-export function Partners({ content, partners }: PartnersProps) {
-  const label = content?.["partners.label"] ?? "Partnerlerimiz";
-  const title = content?.["partners.title"] ?? "Güvendiğimiz Ekosistem.";
+export function Partners({ content, partners, locale = "tr" }: PartnersProps) {
+  const label = content?.["partners.label"] ?? (locale === "en" ? "Our Partners" : "Partnerlerimiz");
+  const title = content?.["partners.title"] ?? (locale === "en" ? "Our Trusted Ecosystem." : "Güvendiğimiz Ekosistem.");
 
   // Pad to 10 slots for grid layout
   const slots = [...partners];
@@ -48,7 +51,7 @@ export function Partners({ content, partners }: PartnersProps) {
             </h2>
           </div>
           <p className="text-[#8892a4] text-sm md:text-base leading-relaxed max-w-[320px]">
-            Teknoloji, medya ve pazarlama alanındaki stratejik iş ortaklarımız.
+            {tr("partners", "subtext", locale)}
           </p>
         </motion.div>
 

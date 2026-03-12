@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PageLayout } from "@/components/PageLayout";
+import type { Locale } from "@/lib/i18n";
 
 const serviceCards = [
   {
@@ -67,9 +68,16 @@ export const metadata = {
     "Performans pazarlama, UGC içerik, sosyal medya, web geliştirme, AI araçlar ve dijital denetim. Veri odaklı, ölçülebilir hizmetler.",
 };
 
-export default function HizmetlerPage() {
+export default async function HizmetlerPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const base = `/${locale}`;
+
   return (
-    <PageLayout>
+    <PageLayout locale={locale}>
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 md:px-12 overflow-hidden border-b border-white/[0.06]">
         <div
@@ -105,13 +113,13 @@ export default function HizmetlerPage() {
             </p>
             <div className="flex gap-3 flex-wrap mb-10">
               <Link
-                href="/iletisim"
+                href={`${base}/iletisim`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#03050d] font-extrabold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all"
               >
                 Ücretsiz Denetim →
               </Link>
               <Link
-                href="/iletisim"
+                href={`${base}/iletisim`}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/20 text-[#8892a4] font-bold text-sm hover:border-white/30 hover:text-white transition-all"
               >
                 Teklif Al
@@ -275,13 +283,13 @@ export default function HizmetlerPage() {
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link
-              href="/iletisim"
+              href={`${base}/iletisim`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#03050d] font-extrabold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all"
             >
               Denetim Talep Et →
             </Link>
             <Link
-              href="/iletisim"
+              href={`${base}/iletisim`}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/20 text-[#8892a4] font-bold text-sm hover:border-white/30 hover:text-white transition-all"
             >
               Demo İzle

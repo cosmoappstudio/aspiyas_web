@@ -3,13 +3,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { FaqItem } from "@/constants/faq";
+import type { ContentMap } from "@/lib/getContent";
 
 interface FAQProps {
   items: FaqItem[];
+  locale?: "tr" | "en";
+  content?: ContentMap;
 }
 
-export function FAQ({ items }: FAQProps) {
+export function FAQ({ items, locale = "tr", content }: FAQProps) {
   const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
+  const label = content?.["faq.label"] ?? (locale === "en" ? "FAQ" : "Sık Sorulan Sorular");
+  const title = content?.["faq.title"] ?? (locale === "en" ? "Questions You May Have." : "Aklınızdaki Sorular.");
+  const subtext = content?.["faq.subtext"] ?? (locale === "en" ? "Have more questions? Reach out — we usually respond within 1 business day." : "Başka sorunuz varsa bize ulaşın — genellikle 1 iş günü içinde yanıt veriyoruz.");
 
   const toggle = (id: string) => {
     setOpenId((prev) => (prev === id ? null : id));
@@ -31,17 +37,14 @@ export function FAQ({ items }: FAQProps) {
             className="lg:sticky lg:top-24"
           >
             <div className="flex items-center gap-2.5 text-[11px] text-[#5a5fcf] uppercase tracking-[0.12em] font-mono mb-4">
-              Sık Sorulan Sorular
+              {label}
               <span className="w-7 h-px bg-[#5a5fcf]" />
             </div>
             <h2 className="text-[clamp(2rem,4vw,3.2rem)] font-bold leading-[1.04] tracking-[-0.03em] text-white mb-4">
-              Aklınızdaki
-              <br />
-              Sorular.
+              {title}
             </h2>
             <p className="text-[#8892a4] text-sm md:text-base leading-relaxed">
-              Başka sorunuz varsa bize ulaşın — genellikle 1 iş günü içinde
-              yanıt veriyoruz.
+              {subtext}
             </p>
           </motion.div>
 
@@ -65,7 +68,7 @@ export function FAQ({ items }: FAQProps) {
                     onClick={() => toggle(item.id)}
                     className="w-full text-left py-6 flex justify-between items-center gap-4 font-bold text-sm md:text-base text-white hover:text-white/80 transition-colors"
                   >
-                    <span>{item.question_tr}</span>
+                    <span>{locale === "en" ? item.question_en : item.question_tr}</span>
                     <motion.span
                       className="text-[#5a6378] text-sm font-mono flex-shrink-0"
                       animate={{ rotate: isOpen ? 45 : 0 }}
@@ -84,7 +87,7 @@ export function FAQ({ items }: FAQProps) {
                         className="overflow-hidden"
                       >
                         <p className="pb-6 text-sm text-[#8892a4] leading-relaxed pr-8">
-                          {item.answer_tr}
+                          {locale === "en" ? item.answer_en : item.answer_tr}
                         </p>
                       </motion.div>
                     )}

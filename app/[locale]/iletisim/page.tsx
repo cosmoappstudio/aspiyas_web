@@ -3,14 +3,24 @@ import { PageLayout } from "@/components/PageLayout";
 import { ContactForm } from "@/components/ContactForm";
 import { getContactFormOptions } from "@/lib/getContactFormOptions";
 import { getContactInfo } from "@/lib/getContactInfo";
+import { tr } from "@/lib/translations";
+import type { Locale } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "İletişim — Aspiyas | Konuşalım, Büyüyelim",
-  description:
-    "Formdan mesaj bırakın veya doğrudan görüşme takvimi ayarlayın. 1 iş günü içinde yanıt veriyoruz.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  return {
+    title: locale === "en" ? "Contact — Aspiyas | Let's Talk, Let's Grow" : "İletişim — Aspiyas | Konuşalım, Büyüyelim",
+    description: locale === "en"
+      ? "Leave a message via the form or schedule a meeting directly. We usually respond within 1 business day."
+      : "Formdan mesaj bırakın veya doğrudan görüşme takvimi ayarlayın. 1 iş günü içinde yanıt veriyoruz.",
+  };
+}
 
 const CALENDAR_URL =
   "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1ySQpbTSBcOC3NY3_v7tRYjmgIumNmBzwjqDkl1Wzr4xeherL76jP2ZaETYg-PpizV_Aa7n4bl?gv=true";
@@ -21,34 +31,38 @@ const socialIcons = [
   { key: "instagram" as const, Icon: Instagram, label: "Instagram" },
 ];
 
-export default async function IletisimPage() {
+export default async function IletisimPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
   const [formOptions, contactInfo] = await Promise.all([
     getContactFormOptions(),
     getContactInfo(),
   ]);
 
   return (
-    <PageLayout>
+    <PageLayout locale={locale}>
       {/* Hero */}
       <section className="py-16 md:py-24 px-6 md:px-12 border-b border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto">
           <div className="flex items-center gap-2.5 text-[11px] text-[#5a5fcf] uppercase tracking-[0.12em] font-mono mb-4">
-            İletişim
+            {tr("contact", "label", locale)}
             <span className="w-7 h-px bg-[#5a5fcf]" />
           </div>
           <h1 className="text-[clamp(3rem,6vw,5rem)] font-bold leading-[0.93] tracking-[-0.04em] text-white mb-4">
-            Konuşalım.
+            {tr("contact", "title1", locale)}
             <br />
             <span
               className="text-transparent"
               style={{ WebkitTextStroke: "1.5px rgba(255,255,255,.2)" }}
             >
-              Büyüyelim.
+              {tr("contact", "title2", locale)}
             </span>
           </h1>
           <p className="text-[#8892a4] text-base leading-relaxed max-w-[440px]">
-            Formdan mesaj bırakın veya doğrudan bir görüşme takvimi ayarlayın.
-            Genellikle 1 iş günü içinde yanıt veriyoruz.
+            {tr("contact", "subtext", locale)}
           </p>
         </div>
       </section>
@@ -56,26 +70,24 @@ export default async function IletisimPage() {
       {/* Form + Calendar */}
       <section className="bg-[#070b17] border-b border-white/[0.06] py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Form */}
           <div>
             <div className="flex items-center gap-2.5 text-[11px] text-[#5a5fcf] uppercase tracking-[0.12em] font-mono mb-6">
-              Mesaj Gönder
+              {tr("contact", "sendMessage", locale)}
               <span className="w-7 h-px bg-[#5a5fcf]" />
             </div>
-            <ContactForm options={formOptions} />
+            <ContactForm options={formOptions} locale={locale} />
           </div>
 
-          {/* Calendar */}
           <div>
             <div className="flex items-center gap-2.5 text-[11px] text-[#5a5fcf] uppercase tracking-[0.12em] font-mono mb-2">
-              Görüşme Takvimi
+              {tr("contact", "calendar", locale)}
               <span className="w-7 h-px bg-[#5a5fcf]" />
             </div>
             <h2 className="text-xl font-bold text-white mb-2">
-              Doğrudan Randevu Al
+              {tr("contact", "directAppointment", locale)}
             </h2>
             <p className="text-[#8892a4] text-sm leading-relaxed mb-4">
-              30 dakikalık ücretsiz keşif görüşmesi. Google Meet üzerinden.
+              {tr("contact", "calendarDesc", locale)}
             </p>
             <div
               className="rounded-xl overflow-hidden border border-white/[0.06] [filter:invert(1)_hue-rotate(180deg)]"
@@ -91,7 +103,7 @@ export default async function IletisimPage() {
               />
             </div>
             <p className="mt-4 text-sm text-[#8892a4]">
-              veya{" "}
+              {tr("contact", "or", locale)}{" "}
               <a
                 href={`mailto:${contactInfo.email}`}
                 className="text-white font-semibold hover:underline"
@@ -108,16 +120,16 @@ export default async function IletisimPage() {
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <div className="bg-[#070b17] border border-white/[0.06] rounded-xl p-5">
             <div className="font-mono text-[10px] text-[#5a6378] uppercase tracking-wider mb-2">
-              Adres
+              {tr("contact", "address", locale)}
             </div>
             <div className="text-sm font-semibold text-white mb-0.5">
               {contactInfo.adres}
             </div>
-            <div className="text-xs text-[#8892a4]">Teknokent & Remote</div>
+            <div className="text-xs text-[#8892a4]">{tr("contact", "addressNote", locale)}</div>
           </div>
           <div className="bg-[#070b17] border border-white/[0.06] rounded-xl p-5">
             <div className="font-mono text-[10px] text-[#5a6378] uppercase tracking-wider mb-2">
-              E-posta
+              {tr("contact", "email", locale)}
             </div>
             <a
               href={`mailto:${contactInfo.email}`}
@@ -125,11 +137,11 @@ export default async function IletisimPage() {
             >
               {contactInfo.email}
             </a>
-            <div className="text-xs text-[#8892a4]">1 iş günü içinde yanıt</div>
+            <div className="text-xs text-[#8892a4]">{tr("contact", "emailNote", locale)}</div>
           </div>
           <div className="bg-[#070b17] border border-white/[0.06] rounded-xl p-5">
             <div className="font-mono text-[10px] text-[#5a6378] uppercase tracking-wider mb-2">
-              Telefon
+              {tr("contact", "phone", locale)}
             </div>
             <a
               href={`tel:${contactInfo.telefon.replace(/\s/g, "")}`}
@@ -137,11 +149,11 @@ export default async function IletisimPage() {
             >
               {contactInfo.telefon}
             </a>
-            <div className="text-xs text-[#8892a4]">Hafta içi 09:00–18:00</div>
+            <div className="text-xs text-[#8892a4]">{tr("contact", "phoneNote", locale)}</div>
           </div>
           <div className="bg-[#070b17] border border-white/[0.06] rounded-xl p-5">
             <div className="font-mono text-[10px] text-[#5a6378] uppercase tracking-wider mb-2">
-              Sosyal
+              {tr("contact", "social", locale)}
             </div>
             <div className="flex gap-3">
               {socialIcons.map(({ key, Icon, label }) => {

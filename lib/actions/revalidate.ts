@@ -2,14 +2,18 @@
 
 import { revalidatePath } from "next/cache";
 
+const LOCALES = ["tr", "en"] as const;
+const PAGES = ["", "/hizmetler", "/hakkimizda", "/iletisim", "/app-studio"] as const;
+
 /**
  * Admin'de kayıt yapıldığında sayfa cache'ini invalidate eder.
- * Veri artık cache'siz çekildiği için her istekte taze veri gelir.
+ * [locale] altındaki tüm sayfaları revalidate eder.
  */
 export async function revalidatePages() {
+  for (const locale of LOCALES) {
+    for (const page of PAGES) {
+      revalidatePath(`/${locale}${page}`);
+    }
+  }
   revalidatePath("/");
-  revalidatePath("/hizmetler");
-  revalidatePath("/hakkimizda");
-  revalidatePath("/iletisim");
-  revalidatePath("/app-studio");
 }

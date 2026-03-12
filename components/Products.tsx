@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { ContentMap } from "@/lib/getContent";
 import type { Stat } from "@/lib/getStats";
+import { tr } from "@/lib/translations";
 
 const FALLBACK_STATS = [
   { value: "27+", label: "Aktif Marka" },
@@ -14,14 +15,15 @@ const FALLBACK_STATS = [
 type ProductsProps = {
   content?: ContentMap;
   stats?: Stat[];
+  locale?: "tr" | "en";
 };
 
-export function Products({ content, stats }: ProductsProps) {
+export function Products({ content, stats, locale = "tr" }: ProductsProps) {
   const shoovoStats = stats?.length
     ? stats
         .filter((s) => ["brands", "creators", "budget"].includes(s.key))
         .slice(0, 3)
-        .map((s) => ({ value: s.value, label: s.label_tr }))
+        .map((s) => ({ value: s.value, label: locale === "en" ? s.label_en : s.label_tr }))
     : FALLBACK_STATS;
 
   const kicker = content?.["shoovo.kicker"] ?? "Flagship Ürün";
@@ -84,7 +86,7 @@ export function Products({ content, stats }: ProductsProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/20 text-[#8892a4] font-bold text-sm hover:border-white/30 hover:text-white transition-all"
               >
-                Marka Paneli
+                {tr("products", "brandPanel", locale)}
               </Link>
             </div>
           </motion.div>
@@ -119,7 +121,7 @@ export function Products({ content, stats }: ProductsProps) {
 
             {/* Badge */}
             <div className="absolute bottom-6 left-6 right-6 bg-[#03050d]/85 backdrop-blur-[10px] border border-[#f47c20]/15 rounded-xl px-5 py-4 flex justify-between items-center text-sm z-20">
-              <span className="text-[#8892a4]">Bu ay üretilen içerik</span>
+              <span className="text-[#8892a4]">{tr("products", "contentThisMonth", locale)}</span>
               <span className="font-bold text-[#f47c20]">1.240 video ↑</span>
             </div>
           </motion.div>
@@ -134,10 +136,10 @@ export function Products({ content, stats }: ProductsProps) {
           className="mt-16 pt-8 border-t border-white/[0.06]"
         >
           <Link
-            href="/app-studio"
+            href={`/${locale}/app-studio`}
             className="inline-flex items-center gap-2 text-sm font-bold text-[#5a5fcf] hover:text-[#7c5cdb] transition-colors"
           >
-            App Studio&apos;yu Gör →
+            {tr("products", "seeAppStudio", locale)}
           </Link>
         </motion.div>
       </div>

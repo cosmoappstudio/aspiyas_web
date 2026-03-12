@@ -20,8 +20,14 @@ export async function getContent(lang?: "tr" | "en"): Promise<ContentMap> {
     const map: ContentMap = {};
 
     for (const row of rows) {
-      if (lang && !row.key.endsWith(`.${lang}`)) continue;
-      const k = lang ? row.key.replace(`.${lang}$`, "") : row.key;
+      if (lang) {
+        const keyHasLang = row.key.toLowerCase().endsWith(`.${lang}`);
+        const langColMatches = row.lang?.toLowerCase() === lang;
+        if (!keyHasLang && !langColMatches) continue;
+      }
+      const k = lang && row.key.endsWith(`.${lang}`)
+        ? row.key.replace(new RegExp(`\\.${lang}$`, "i"), "")
+        : row.key;
       map[k] = row.value;
     }
 

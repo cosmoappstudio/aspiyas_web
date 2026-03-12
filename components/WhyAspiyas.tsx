@@ -3,20 +3,8 @@
 import { motion } from "framer-motion";
 import type { ContentMap } from "@/lib/getContent";
 import type { Stat } from "@/lib/getStats";
-
-const FALLBACK_REASONS = [
-  { num: "01", title: "Teknoloji şirketiyiz, sadece ajans değil", text: "Kendi SaaS ürünlerimizi yönetiyoruz. Ölçekleme sorunlarını bizzat çözüyoruz." },
-  { num: "02", title: "UGC'den performance'a entegre hizmet", text: "Shoovo ile içerik üretip aynı çatıda yönetiyoruz. Maliyet %70 daha düşük." },
-  { num: "03", title: "Veri ve AI odaklı karar alma", text: "Her kararı veriye dayandırıyoruz. Ölçülebilir ve sürdürülebilir büyüme." },
-  { num: "04", title: "8+ yıl büyük marka deneyimi", text: "LC Waikiki, Vodafone, Morhipo ve Boyner ile çalışmış ekip." },
-];
-
-const FALLBACK_STATS = [
-  { value: "200+", label: "Aktif Marka" },
-  { value: "500+", label: "Creator" },
-  { value: "%70", label: "Düşük İçerik Maliyeti" },
-  { value: "3", label: "Aktif SaaS Ürün" },
-];
+import { tr } from "@/lib/translations";
+import type { Locale } from "@/lib/i18n";
 
 const container = {
   hidden: { opacity: 0 },
@@ -34,19 +22,29 @@ const item = {
 type WhyAspiyasProps = {
   content?: ContentMap;
   stats?: Stat[];
+  locale?: Locale;
 };
 
-export function WhyAspiyas({ content, stats }: WhyAspiyasProps) {
-  const label = content?.["why.label"] ?? "Neden Aspiyas?";
-  const title = content?.["why.title"] ?? "Growth'u İçeriden Biliyoruz.";
+export function WhyAspiyas({ content, stats, locale = "tr" }: WhyAspiyasProps) {
+  const label = content?.["why.label"] ?? (locale === "en" ? "Why Aspiyas?" : "Neden Aspiyas?");
+  const title = content?.["why.title"] ?? (locale === "en" ? "We Know Growth From Within." : "Growth'u İçeriden Biliyoruz.");
   const whyStats = stats?.length
-    ? stats.slice(0, 4).map((s) => ({ value: s.value, label: s.label_tr }))
-    : FALLBACK_STATS;
+    ? stats.slice(0, 4).map((s) => ({ value: s.value, label: locale === "en" ? s.label_en : s.label_tr }))
+    : [
+        { value: "200+", label: tr("why", "stat1", locale) },
+        { value: "500+", label: tr("why", "stat2", locale) },
+        { value: "%70", label: tr("why", "stat3", locale) },
+        { value: "3", label: tr("why", "stat4", locale) },
+      ];
   const yearsStat = stats?.find((s) => s.key === "years");
   const bigYears = yearsStat?.value ?? "8+";
 
-  // Reasons stay hardcoded for now (no CMS field)
-  const reasons = FALLBACK_REASONS;
+  const reasons = [
+    { num: "01", title: tr("why", "reason1Title", locale), text: tr("why", "reason1Text", locale) },
+    { num: "02", title: tr("why", "reason2Title", locale), text: tr("why", "reason2Text", locale) },
+    { num: "03", title: tr("why", "reason3Title", locale), text: tr("why", "reason3Text", locale) },
+    { num: "04", title: tr("why", "reason4Title", locale), text: tr("why", "reason4Text", locale) },
+  ];
 
   return (
     <section
@@ -108,7 +106,7 @@ export function WhyAspiyas({ content, stats }: WhyAspiyasProps) {
               {bigYears}
             </div>
             <div className="text-sm text-[#8892a4] tracking-wide mb-12">
-              Yıl Sektör Deneyimi
+              {tr("why", "yearsExp", locale)}
             </div>
 
             <div className="grid grid-cols-2 gap-px bg-white/[0.06] rounded-xl overflow-hidden border border-white/[0.06]">

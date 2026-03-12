@@ -1,4 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
+import { unstable_noStore } from "next/cache";
+import { createAdminClient } from "@/lib/supabase/server";
 
 export type SiteSettings = {
   site_name: string;
@@ -13,8 +14,9 @@ const FALLBACK: SiteSettings = {
 };
 
 async function fetchSiteSettings(): Promise<SiteSettings> {
+  unstable_noStore();
   try {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data, error } = await supabase
       .from("site_settings")
       .select("key, value");

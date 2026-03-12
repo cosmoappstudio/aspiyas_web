@@ -6,21 +6,26 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { tr } from "@/lib/translations";
+import type { Locale } from "@/lib/i18n";
 
-const navLinks = [
-  { href: "/hizmetler", label: "Hizmetler", scrollOnHome: "#services" },
-  { href: "/hakkimizda", label: "Hakkımızda", scrollOnHome: "#why" },
-  { href: "/app-studio", label: "App Studio", scrollOnHome: null },
-  { href: "/iletisim", label: "İletişim", scrollOnHome: null },
+const navLinkKeys = [
+  { href: "hizmetler", labelKey: "services" as const, scrollOnHome: "#services" },
+  { href: "hakkimizda", labelKey: "about" as const, scrollOnHome: "#why" },
+  { href: "app-studio", label: "App Studio", scrollOnHome: null },
+  { href: "iletisim", labelKey: "contact" as const, scrollOnHome: null },
 ];
 
 interface NavbarProps {
   logoUrl?: string | null;
+  locale?: Locale;
 }
 
-export function Navbar({ logoUrl }: NavbarProps = {}) {
+export function Navbar({ logoUrl, locale = "tr" }: NavbarProps = {}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const base = `/${locale}`;
 
   return (
     <nav
@@ -31,7 +36,7 @@ export function Navbar({ logoUrl }: NavbarProps = {}) {
       )}
     >
       <Link
-        href="/"
+        href={base}
         className="font-bold text-lg tracking-tight text-white flex items-center hover:opacity-90 transition-opacity"
       >
         {logoUrl ? (
@@ -45,21 +50,24 @@ export function Navbar({ logoUrl }: NavbarProps = {}) {
 
       {/* Desktop nav */}
       <ul className="hidden md:flex items-center gap-9 list-none">
-        {navLinks.map((link) => {
-          const isActive = pathname?.startsWith(link.href);
-          const href =
-            pathname === "/" && link.scrollOnHome ? link.scrollOnHome : link.href;
+        {navLinkKeys.map((link) => {
+          const isActive = pathname?.includes(`/${link.href}`);
+          const linkHref =
+            link.scrollOnHome && (pathname === base || pathname === `${base}/`)
+              ? link.scrollOnHome
+              : `${base}/${link.href}`;
+          const label = "labelKey" in link && link.labelKey ? tr("nav", link.labelKey, locale) : (link as { label?: string }).label ?? "";
           return (
             <li key={link.href}>
               <Link
-                href={href}
+                href={linkHref}
                 className={cn(
                   "text-sm font-medium transition-colors",
                   isActive ? "text-white" : "text-[#8892a4] hover:text-white"
                 )}
                 onClick={() => setMobileOpen(false)}
               >
-                {link.label}
+                {label}
               </Link>
             </li>
           );
@@ -67,11 +75,12 @@ export function Navbar({ logoUrl }: NavbarProps = {}) {
       </ul>
 
       <div className="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
         <Link
-          href="/iletisim"
+          href={`${base}/iletisim`}
           className="hidden md:inline-flex px-5 py-2 rounded-lg border border-white/20 text-white font-bold text-sm hover:bg-white/5 hover:border-white/30 transition-all"
         >
-          Teklif Al
+          {tr("nav", "getQuote", locale)}
         </Link>
 
         {/* Mobile menu button */}
@@ -79,7 +88,7 @@ export function Navbar({ logoUrl }: NavbarProps = {}) {
           type="button"
           className="md:hidden p-2 text-[#8892a4] hover:text-white transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? "Menüyü kapat" : "Menüyü aç"}
+          aria-label={mobileOpen ? tr("nav", "menuClose", locale) : tr("nav", "menuOpen", locale)}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -107,11 +116,12 @@ export function Navbar({ logoUrl }: NavbarProps = {}) {
               style={{ backgroundColor: "#03050d" }}
             >
               <ul className="flex flex-col gap-6">
-                {navLinks.map((link) => {
+                {navLinkKeys.map((link) => {
                   const href =
-                    pathname === "/" && link.scrollOnHome
+                    (pathname === base || pathname === `${base}/`) && link.scrollOnHome
                       ? link.scrollOnHome
-                      : link.href;
+                      : `${base}/${link.href}`;
+                  const label = "labelKey" in link && link.labelKey ? tr("nav", link.labelKey, locale) : (link as { label?: string }).label ?? "";
                   return (
                     <li key={link.href}>
                       <Link
@@ -119,18 +129,18 @@ export function Navbar({ logoUrl }: NavbarProps = {}) {
                         className="block text-lg font-medium text-[#8892a4] hover:text-white transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
-                        {link.label}
+                        {label}
                       </Link>
                     </li>
                   );
                 })}
                 <li>
                   <Link
-                    href="/iletisim"
+                    href={`${base}/iletisim`}
                     className="inline-flex px-5 py-2.5 rounded-lg border border-white/20 text-white font-bold text-sm"
                     onClick={() => setMobileOpen(false)}
                   >
-                    Teklif Al
+                    {tr("nav", "getQuote", locale)}
                   </Link>
                 </li>
               </ul>

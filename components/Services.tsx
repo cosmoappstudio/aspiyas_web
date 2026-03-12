@@ -17,6 +17,8 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { ContentMap } from "@/lib/getContent";
 import type { SerializableService } from "@/lib/getServices";
+import { tr } from "@/lib/translations";
+import type { Locale } from "@/lib/i18n";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Target,
@@ -45,9 +47,10 @@ const item = {
 type ServicesProps = {
   content?: ContentMap;
   services: SerializableService[];
+  locale?: Locale;
 };
 
-export function Services({ content, services: serviceList }: ServicesProps) {
+export function Services({ content, services: serviceList, locale = "tr" }: ServicesProps) {
   const label = content?.["services.label"] ?? "Hizmetlerimiz";
   const title = content?.["services.title"] ?? "Entegre Dijital Büyüme";
   const subtext = content?.["services.subtext"] ?? "Performans pazarlamadan AI araç geliştirmeye kadar — veri odaklı, ölçülebilir ve entegre hizmetler.";
@@ -124,12 +127,12 @@ export function Services({ content, services: serviceList }: ServicesProps) {
                               <BarChart3 className="w-4 h-4 text-[#5a5fcf]" />
                             </div>
                             <span className="text-[11px] font-mono text-[#5a6378] tracking-wider">
-                              ROAS — Son 30 Gün
+                              {tr("services", "roasLabel", locale)}
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#5a6378]">
                             <TrendingUp className="w-3.5 h-3.5 text-[#4ade80]" />
-                            <span>Veri odaklı</span>
+                            <span>{tr("services", "dataDriven", locale)}</span>
                           </div>
                         </div>
                         <div className="h-[72px] w-full">
@@ -158,11 +161,11 @@ export function Services({ content, services: serviceList }: ServicesProps) {
                           <div>
                             <span className="text-2xl font-bold text-white">×4.8</span>
                             <span className="text-sm font-normal text-[#8892a4] ml-1.5">
-                              ort. ROAS
+                              {tr("services", "avgRoas", locale)}
                             </span>
                           </div>
                           <div className="flex gap-3 text-[10px] font-mono text-[#5a6378] uppercase tracking-wider">
-                            <span>Strateji</span>
+                            <span>{tr("services", "strategy", locale)}</span>
                             <span>•</span>
                             <span>Growth</span>
                           </div>
@@ -200,7 +203,7 @@ export function Services({ content, services: serviceList }: ServicesProps) {
                     )}
                     {service.badgeType === "free" && (
                       <span className="inline-flex mt-4 text-[11px] font-bold uppercase tracking-wider text-[#4ade80] bg-[#4ade80]/7 border border-[#4ade80]/15 rounded-md px-2.5 py-1 font-mono">
-                        Ücretsiz Başlangıç
+                        {tr("services", "freeStart", locale)}
                       </span>
                     )}
                   </>

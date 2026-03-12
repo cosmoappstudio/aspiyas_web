@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { ContactFormOptions } from "@/lib/getContactFormOptions";
+import { tr, trOption } from "@/lib/translations";
+import type { Locale } from "@/lib/i18n";
 
 const DEFAULT_OPTIONS: ContactFormOptions = {
   sectors: [
@@ -38,9 +40,10 @@ const labelClass =
 
 interface ContactFormProps {
   options?: ContactFormOptions;
+  locale?: Locale;
 }
 
-export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
+export function ContactForm({ options = DEFAULT_OPTIONS, locale = "tr" }: ContactFormProps) {
   const { sectors, budgets, services } = options;
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
@@ -75,7 +78,7 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
 
       if (!res.ok) {
         setStatus("error");
-        setErrorMsg(data.error || "Bir hata oluştu.");
+        setErrorMsg(data.error || tr("contactForm", "error", locale));
         return;
       }
 
@@ -83,7 +86,7 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
       form.reset();
     } catch {
       setStatus("error");
-      setErrorMsg("Bağlantı hatası. Lütfen tekrar deneyin.");
+      setErrorMsg(tr("contactForm", "errorConnection", locale));
     }
   }
 
@@ -92,26 +95,26 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="name" className={labelClass}>
-            Ad Soyad
+            {tr("contactForm", "name", locale)}
           </label>
           <input
             id="name"
             name="name"
             type="text"
-            placeholder="Adınız"
+            placeholder={tr("contactForm", "namePlaceholder", locale)}
             required
             className={inputClass}
           />
         </div>
         <div>
           <label htmlFor="company" className={labelClass}>
-            Şirket
+            {tr("contactForm", "company", locale)}
           </label>
           <input
             id="company"
             name="company"
             type="text"
-            placeholder="Şirket adı"
+            placeholder={tr("contactForm", "companyPlaceholder", locale)}
             className={inputClass}
           />
         </div>
@@ -120,26 +123,26 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="email" className={labelClass}>
-            E-posta
+            {tr("contactForm", "email", locale)}
           </label>
           <input
             id="email"
             name="email"
             type="email"
-            placeholder="ornek@sirket.com"
+            placeholder={tr("contactForm", "emailPlaceholder", locale)}
             required
             className={inputClass}
           />
         </div>
         <div>
           <label htmlFor="phone" className={labelClass}>
-            Telefon
+            {tr("contactForm", "phone", locale)}
           </label>
           <input
             id="phone"
             name="phone"
             type="tel"
-            placeholder="+90 5xx xxx xx xx"
+            placeholder={tr("contactForm", "phonePlaceholder", locale)}
             className={inputClass}
           />
         </div>
@@ -148,7 +151,7 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="sector" className={labelClass}>
-            Sektör
+            {tr("contactForm", "sector", locale)}
           </label>
           <select
             id="sector"
@@ -158,17 +161,17 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6378' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
             }}
           >
-            <option value="">Sektörünüz...</option>
+            <option value="">{tr("contactForm", "sectorPlaceholder", locale)}</option>
             {sectors.map((s) => (
               <option key={s} value={s}>
-                {s}
+                {trOption("sectors", s, locale)}
               </option>
             ))}
           </select>
         </div>
         <div>
           <label htmlFor="budget" className={labelClass}>
-            Ortalama Reklam Bütçesi
+            {tr("contactForm", "budget", locale)}
           </label>
           <select
             id="budget"
@@ -178,10 +181,10 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6378' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
             }}
           >
-            <option value="">Aylık bütçeniz...</option>
+            <option value="">{tr("contactForm", "budgetPlaceholder", locale)}</option>
             {budgets.map((b) => (
               <option key={b} value={b}>
-                {b}
+                {trOption("budgets", b, locale)}
               </option>
             ))}
           </select>
@@ -190,7 +193,7 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
 
       <div>
         <label htmlFor="service" className={labelClass}>
-          İlgilendiğiniz Hizmet
+          {tr("contactForm", "service", locale)}
         </label>
         <select
           id="service"
@@ -200,23 +203,23 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6378' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
           }}
         >
-            <option value="">Seçiniz...</option>
+            <option value="">{tr("contactForm", "servicePlaceholder", locale)}</option>
             {services.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
+              <option key={s} value={s}>
+                {trOption("services", s, locale)}
+              </option>
+            ))}
         </select>
       </div>
 
       <div>
         <label htmlFor="message" className={labelClass}>
-          Mesajınız
+          {tr("contactForm", "message", locale)}
         </label>
         <textarea
           id="message"
           name="message"
-          placeholder="Projeniz veya hedefiniz hakkında kısaca bilgi verin..."
+          placeholder={tr("contactForm", "messagePlaceholder", locale)}
           required
           rows={5}
           className={`${inputClass} resize-y min-h-[110px] leading-relaxed`}
@@ -225,7 +228,7 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
 
       {status === "success" && (
         <p className="text-sm text-emerald-400">
-          Mesajınız gönderildi. En kısa sürede size dönüş yapacağız.
+          {tr("contactForm", "success", locale)}
         </p>
       )}
       {status === "error" && (
@@ -238,17 +241,17 @@ export function ContactForm({ options = DEFAULT_OPTIONS }: ContactFormProps) {
         className="w-full bg-gradient-to-br from-[#5a5fcf] to-[#7c5cdb] text-white border-none py-3 px-8 rounded-[11px] font-extrabold text-sm cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_0_36px_rgba(90,95,207,0.5)] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
       >
         {status === "loading" ? (
-          "Gönderiliyor..."
+          tr("contactForm", "sending", locale)
         ) : (
           <>
-            Mesaj Gönder
+            {tr("contactForm", "submit", locale)}
             <span>→</span>
           </>
         )}
       </button>
 
       <p className="text-xs text-[#5a6378]">
-        Form gönderildiğinde hello@aspiyas.com adresine iletilir.
+        {tr("contactForm", "formNote", locale)}
       </p>
     </form>
   );

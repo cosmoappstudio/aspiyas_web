@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageLayout } from "@/components/PageLayout";
 import { getAppStudio } from "@/lib/getAppStudio";
+import type { Locale } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -10,11 +11,17 @@ export const metadata = {
     "Markanıza özel dijital ürünler, AI araçlar ve mobil uygulamalar. Fikir aşamasından canlıya kadar uçtan uca geliştirme.",
 };
 
-export default async function AppStudioPage() {
-  const { content, what, how } = await getAppStudio("tr");
+export default async function AppStudioPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const base = `/${locale}`;
+  const { content, what, how } = await getAppStudio(locale);
 
   return (
-    <PageLayout>
+    <PageLayout locale={locale}>
       {/* Hero */}
       <section className="relative py-20 md:py-28 px-6 md:px-12 overflow-hidden border-b border-white/[0.06] text-center">
         <div
@@ -56,13 +63,13 @@ export default async function AppStudioPage() {
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link
-              href="/iletisim"
+              href={`${base}/iletisim`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#03050d] font-extrabold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all"
             >
               {content.hero.cta1}
             </Link>
             <Link
-              href="/iletisim"
+              href={`${base}/iletisim`}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/20 text-[#8892a4] font-bold text-sm hover:border-white/30 hover:text-white transition-all"
             >
               {content.hero.cta2}
@@ -89,7 +96,7 @@ export default async function AppStudioPage() {
               {content.what.desc2}
             </p>
             <Link
-              href="/iletisim"
+              href={`${base}/iletisim`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#03050d] font-extrabold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all"
             >
               {content.what.cta}
@@ -162,13 +169,13 @@ export default async function AppStudioPage() {
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link
-              href="/iletisim"
+              href={`${base}/iletisim`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#03050d] font-extrabold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all"
             >
               {content.cta.cta1}
             </Link>
             <Link
-              href="/iletisim"
+              href={`${base}/iletisim`}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/20 text-[#8892a4] font-bold text-sm hover:border-white/30 hover:text-white transition-all"
             >
               {content.cta.cta2}
