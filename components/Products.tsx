@@ -133,9 +133,6 @@ export function Products({ content, stats }: ProductsProps) {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-16 pt-8 border-t border-white/[0.06]"
         >
-          <p className="text-[#5a6378] text-sm font-mono mb-3">
-            + Dreemart AI · Benche · Musicifal
-          </p>
           <Link
             href="/app-studio"
             className="inline-flex items-center gap-2 text-sm font-bold text-[#5a5fcf] hover:text-[#7c5cdb] transition-colors"
