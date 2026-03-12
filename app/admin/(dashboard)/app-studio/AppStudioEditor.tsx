@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { revalidatePages } from "@/lib/actions/revalidate";
-import { createClient } from "@/lib/supabase/client";
 
 type WhatRow = {
   id: string;
@@ -48,74 +47,90 @@ export function AppStudioEditor({
   const [addingHow, setAddingHow] = useState(false);
   const [saving, setSaving] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"content" | "what" | "how">("content");
-  const supabase = createClient();
+  const [error, setError] = useState<string | null>(null);
 
   async function saveContent(row: ContentRow, value: string) {
     setSaving(row.id);
-    await supabase.from("content").update({ value }).eq("id", row.id);
-    setContent((prev) => prev.map((r) => (r.id === row.id ? { ...r, value } : r)));
+    setError(null);
+    const res = await fetch("/api/admin/app-studio/content", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: row.id, value }),
+    });
     setSaving(null);
+    if (!res.ok) {
+      setError("Kaydetme başarısız");
+      return;
+    }
+    setContent((prev) => prev.map((r) => (r.id === row.id ? { ...r, value } : r)));
     await revalidatePages();
   }
 
   async function saveWhat(formData: FormData) {
     setSaving("what");
+    setError(null);
     const id = formData.get("id") as string;
     const payload = {
+      id: id || undefined,
       title_tr: formData.get("title_tr") as string,
       title_en: formData.get("title_en") as string,
       desc_tr: formData.get("desc_tr") as string,
       desc_en: formData.get("desc_en") as string,
+      sort_order: what.length,
     };
-    if (id) {
-      await supabase.from("app_studio_what").update(payload).eq("id", id);
-      setWhat((prev) => prev.map((w) => (w.id === id ? { ...w, ...payload } : w)));
-      setEditingWhat(null);
-    } else {
-      const { data } = await supabase
-        .from("app_studio_what")
-        .insert({ ...payload, sort_order: what.length })
-        .select()
-        .single();
-      if (data) setWhat((prev) => [...prev, data]);
-      setAddingWhat(false);
-    }
+    const res = await fetch("/api/admin/app-studio/what", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
     setSaving(null);
+    if (!res.ok) {
+      setError("Kaydetme başarısız");
+      return;
+    }
+    setEditingWhat(null);
+    setAddingWhat(false);
     await revalidatePages();
     window.location.reload();
   }
 
   async function saveHow(formData: FormData) {
     setSaving("how");
+    setError(null);
     const id = formData.get("id") as string;
     const payload = {
+      id: id || undefined,
       num: formData.get("num") as string,
       title_tr: formData.get("title_tr") as string,
       title_en: formData.get("title_en") as string,
       desc_tr: formData.get("desc_tr") as string,
       desc_en: formData.get("desc_en") as string,
+      sort_order: how.length,
     };
-    if (id) {
-      await supabase.from("app_studio_how").update(payload).eq("id", id);
-      setHow((prev) => prev.map((h) => (h.id === id ? { ...h, ...payload } : h)));
-      setEditingHow(null);
-    } else {
-      const { data } = await supabase
-        .from("app_studio_how")
-        .insert({ ...payload, sort_order: how.length })
-        .select()
-        .single();
-      if (data) setHow((prev) => [...prev, data]);
-      setAddingHow(false);
-    }
+    const res = await fetch("/api/admin/app-studio/how", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
     setSaving(null);
+    if (!res.ok) {
+      setError("Kaydetme başarısız");
+      return;
+    }
+    setEditingHow(null);
+    setAddingHow(false);
     await revalidatePages();
     window.location.reload();
   }
 
   async function deleteWhat(id: string) {
     if (!confirm("Bu kartı silmek istediğinize emin misiniz?")) return;
-    await supabase.from("app_studio_what").delete().eq("id", id);
+    setError(null);
+    const res = await fetch(`/api/admin/app-studio/what?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      setError("Silme başarısız");
+      return;
+    }
     setWhat((prev) => prev.filter((w) => w.id !== id));
     setEditingWhat(null);
     await revalidatePages();
@@ -124,7 +139,12 @@ export function AppStudioEditor({
 
   async function deleteHow(id: string) {
     if (!confirm("Bu adımı silmek istediğinize emin misiniz?")) return;
-    await supabase.from("app_studio_how").delete().eq("id", id);
+    setError(null);
+    const res = await fetch(`/api/admin/app-studio/how?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      setError("Silme başarısız");
+      return;
+    }
     setHow((prev) => prev.filter((h) => h.id !== id));
     setEditingHow(null);
     await revalidatePages();
@@ -135,6 +155,11 @@ export function AppStudioEditor({
 
   return (
     <div className="space-y-8">
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3 text-red-400 text-sm">
+          {error}
+        </div>
+      )}
       <div className="flex gap-2 border-b border-white/[0.06] pb-4">
         {(["content", "what", "how"] as const).map((tab) => (
           <button

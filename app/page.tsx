@@ -15,13 +15,14 @@ import { getContactInfo } from "@/lib/getContactInfo";
 import { getContent } from "@/lib/getContent";
 import { getFaqs } from "@/lib/faq";
 import { buildFaqPageSchema } from "@/lib/faq-schema";
+import { getFooterProducts } from "@/lib/getFooterProducts";
 import { getPartners } from "@/lib/getPartners";
 import { getServices } from "@/lib/getServices";
 import { getSiteSettings } from "@/lib/getSiteSettings";
 import { getStats } from "@/lib/getStats";
 
 export default async function Home() {
-  const [faqs, settings, brands, content, stats, services, partners, contactInfo] =
+  const [faqs, settings, brands, content, stats, services, partners, contactInfo, footerProducts] =
     await Promise.all([
       getFaqs(),
       getSiteSettings(),
@@ -31,6 +32,7 @@ export default async function Home() {
       getServices("tr"),
       getPartners(),
       getContactInfo(),
+      getFooterProducts(),
     ]);
   const faqSchema = buildFaqPageSchema(faqs);
 
@@ -56,6 +58,7 @@ export default async function Home() {
         siteTagline={settings.site_tagline}
         email={contactInfo.email}
         socialLinks={contactInfo.socialLinks}
+        products={footerProducts}
       />
     </div>
   );

@@ -13,6 +13,7 @@ const navItems = [
   { href: "/admin/app-studio", icon: "◆", label: "App Studio" },
   { href: "/admin/stats", icon: "#", label: "İstatistikler" },
   { href: "/admin/contact-info", icon: "✉", label: "İletişim Bilgileri" },
+  { href: "/admin/footer-products", icon: "▤", label: "Footer Ürünleri" },
   { href: "/admin/site-settings", icon: "⚙", label: "Site Ayarları" },
   { href: "/admin/contact-form-options", icon: "▢", label: "Form Seçenekleri" },
 ];

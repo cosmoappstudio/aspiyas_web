@@ -1,20 +1,15 @@
 import Link from "next/link";
 import { Linkedin, Twitter, Instagram } from "lucide-react";
 import type { SocialLinks } from "@/lib/getContactInfo";
+import type { FooterProduct } from "@/lib/getFooterProducts";
 
 interface FooterProps {
   logoUrl?: string | null;
   siteTagline?: string;
   email?: string;
   socialLinks?: SocialLinks;
+  products?: FooterProduct[];
 }
-
-const products = [
-  { label: "Shoovo", href: "https://shoovo.app" },
-  { label: "Dreemart", href: "#" },
-  { label: "Benche", href: "#" },
-  { label: "Musicifal", href: "#" },
-];
 
 const servicesLinks = [
   { label: "Performans Pazarlama", href: "#services" },
@@ -42,6 +37,7 @@ export function Footer({
   siteTagline = "We build products.\nWe grow brands.",
   email = "hello@aspiyas.com",
   socialLinks,
+  products = [],
 }: FooterProps = {}) {
   return (
     <footer className="bg-[#03050d] border-t border-white/[0.06] pt-20 pb-10 px-6 md:px-12">
@@ -94,16 +90,16 @@ export function Footer({
               Ürünler
             </h5>
             <ul className="space-y-2.5">
-              {products.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
+              {products.map((p) => (
+                <li key={p.id}>
+                  <a
+                    href={p.url}
+                    target={p.url.startsWith("http") ? "_blank" : undefined}
+                    rel={p.url.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="text-sm text-[#8892a4] hover:text-white transition-colors"
-                    target={link.href.startsWith("http") ? "_blank" : undefined}
-                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   >
-                    {link.label}
-                  </Link>
+                    {p.name}
+                  </a>
                 </li>
               ))}
             </ul>

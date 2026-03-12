@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { getContactInfo } from "@/lib/getContactInfo";
+import { getFooterProducts } from "@/lib/getFooterProducts";
 import { getSiteSettings } from "@/lib/getSiteSettings";
 
 interface PageLayoutProps {
@@ -8,9 +9,10 @@ interface PageLayoutProps {
 }
 
 export async function PageLayout({ children }: PageLayoutProps) {
-  const [settings, contactInfo] = await Promise.all([
+  const [settings, contactInfo, products] = await Promise.all([
     getSiteSettings(),
     getContactInfo(),
+    getFooterProducts(),
   ]);
   return (
     <div className="min-h-screen bg-[#03050d] text-[#eef0f6] overflow-x-hidden">
@@ -21,6 +23,7 @@ export async function PageLayout({ children }: PageLayoutProps) {
         siteTagline={settings.site_tagline}
         email={contactInfo.email}
         socialLinks={contactInfo.socialLinks}
+        products={products}
       />
     </div>
   );
