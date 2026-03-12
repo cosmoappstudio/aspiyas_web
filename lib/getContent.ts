@@ -1,3 +1,4 @@
+import { unstable_noStore } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export type ContentMap = Record<string, string>;
@@ -6,6 +7,7 @@ export type ContentMap = Record<string, string>;
  * Content tablosundan key-value map döndürür.
  */
 export async function getContent(lang?: "tr" | "en"): Promise<ContentMap> {
+  unstable_noStore();
   try {
     const supabase = await createClient();
     const { data, error } = await supabase

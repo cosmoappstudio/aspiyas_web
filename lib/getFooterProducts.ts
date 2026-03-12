@@ -1,3 +1,4 @@
+import { unstable_noStore } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export type FooterProduct = {
@@ -11,6 +12,7 @@ const FALLBACK: FooterProduct[] = [
 ];
 
 export async function getFooterProducts(): Promise<FooterProduct[]> {
+  unstable_noStore();
   try {
     const supabase = await createClient();
     const { data } = await supabase

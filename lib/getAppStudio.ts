@@ -1,3 +1,4 @@
+import { unstable_noStore } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getContent } from "@/lib/getContent";
 
@@ -139,6 +140,7 @@ function buildContent(map: Record<string, string>): AppStudioContent {
 }
 
 export async function getAppStudio(lang: "tr" | "en" = "tr") {
+  unstable_noStore();
   const [contentMap, what, how] = await Promise.all([
     getContent(lang),
     fetchWhat(lang),
