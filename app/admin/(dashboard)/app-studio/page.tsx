@@ -1,10 +1,10 @@
 import { createAdminClient } from "@/lib/supabase/server";
-import { AppStudioEditor } from "./AppStudioEditor";
+import { AppStudioEditor, type WhatRow, type HowRow, type ContentRow } from "./AppStudioEditor";
 
 export default async function AdminAppStudioPage() {
-  let whatData: unknown[] = [];
-  let howData: unknown[] = [];
-  let contentData: { id: string; key: string; value: string; lang: string }[] = [];
+  let whatData: WhatRow[] = [];
+  let howData: HowRow[] = [];
+  let contentData: ContentRow[] = [];
   let migrationError = false;
 
   try {
@@ -15,9 +15,9 @@ export default async function AdminAppStudioPage() {
       supabase.from("content").select("id, key, value, lang").like("key", "app_studio.%"),
     ]);
     if (whatRes.error || howRes.error) migrationError = true;
-    whatData = whatRes.data ?? [];
-    howData = howRes.data ?? [];
-    contentData = (contentRes.data ?? []) as { id: string; key: string; value: string; lang: string }[];
+    whatData = (whatRes.data ?? []) as WhatRow[];
+    howData = (howRes.data ?? []) as HowRow[];
+    contentData = (contentRes.data ?? []) as ContentRow[];
   } catch {
     migrationError = true;
   }

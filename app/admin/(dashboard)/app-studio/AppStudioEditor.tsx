@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { revalidatePages } from "@/lib/actions/revalidate";
 
-type WhatRow = {
+export type WhatRow = {
   id: string;
   title_tr: string;
   title_en: string;
@@ -12,7 +12,7 @@ type WhatRow = {
   sort_order: number;
 };
 
-type HowRow = {
+export type HowRow = {
   id: string;
   num: string;
   title_tr: string;
@@ -22,7 +22,7 @@ type HowRow = {
   sort_order: number;
 };
 
-type ContentRow = {
+export type ContentRow = {
   id: string;
   key: string;
   value: string;
