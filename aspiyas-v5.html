@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aspiyas — Dijital Büyüme & SaaS Tech House | Antalya, Türkiye</title>
+<meta name="description" content="Aspiyas; Shoovo UGC platformu, performans pazarlama ve AI araç geliştirme hizmetleriyle Türk markalarını büyüten bir teknoloji şirketidir. Antalya merkezli, global vizyonlu.">
+
+<!-- GEO: Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://aspiyas.com/#org",
+      "name": "Aspiyas Teknoloji ve Ticaret A.Ş.",
+      "alternateName": "Aspiyas Tech House",
+      "url": "https://aspiyas.com",
+      "logo": "https://aspiyas.com/logo.png",
+      "description": "Aspiyas is a Turkish tech house that builds SaaS products and provides data-driven digital growth services. Creator of Shoovo, Turkey's first UGC platform.",
+      "foundingLocation": { "@type": "Place", "name": "Antalya, Turkey" },
+      "areaServed": ["Turkey", "Europe", "Middle East"],
+      "knowsAbout": ["UGC Marketing", "Performance Marketing", "SaaS", "AI Tools", "Mobile App Growth", "Social Media Management"],
+      "sameAs": ["https://shoovo.app", "https://linkedin.com/company/aspiyas"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Aspiyas hangi hizmetleri sunuyor?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Aspiyas; veri bilimi odaklı performans pazarlama, UGC içerik hizmeti (Shoovo platformu), sosyal medya yönetimi, web sitesi tasarım ve geliştirme, yazılım danışmanlığı, mobile app growth, dijital denetim ve markalara özel AI araç geliştirme hizmetleri sunmaktadır." }
+        },
+        {
+          "@type": "Question",
+          "name": "Shoovo nedir?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Shoovo, Aspiyas tarafından geliştirilen Türkiye'nin ilk UGC (User Generated Content) SaaS platformudur. Markalar ile içerik üreticilerini buluşturarak hızlı, ekonomik ve dönüşüm odaklı video içerik üretimini mümkün kılar. İçerik maliyetini %70'e kadar düşürür." }
+        },
+        {
+          "@type": "Question",
+          "name": "Aspiyas ile çalışmak için minimum bütçe nedir?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Aspiyas her ölçekteki markaya hizmet vermektedir. Ücretsiz dijital denetim hizmetiyle başlayarak ihtiyaçlarınıza özel bir büyüme planı oluşturulur. Net bir fiyat için teklif formumuzu doldurmanızı öneririz." }
+        },
+        {
+          "@type": "Question",
+          "name": "Aspiyas nerede konumlanıyor?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Aspiyas, Antalya Türkiye merkezli olmakla birlikte Türkiye genelinde ve uluslararası markalara hizmet vermektedir." }
+        },
+        {
+          "@type": "Question",
+          "name": "UGC içerik ne kadar sürede teslim edilir?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Shoovo platformu aracılığıyla UGC içerikler genellikle 3-7 iş günü içinde teslim edilmektedir. Geleneksel prodüksiyona kıyasla hem çok daha hızlı hem de %70 daha ekonomiktir." }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://aspiyas.com/#website",
+      "url": "https://aspiyas.com",
+      "name": "Aspiyas",
+      "publisher": { "@id": "https://aspiyas.com/#org" },
+      "inLanguage": ["tr", "en"]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,800,600&f[]=cabinet-grotesk@400,500,700,800,900&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#03050d; --s1:#070b17; --s2:#0c1120;
+  --border:rgba(255,255,255,.06); --border-hi:rgba(255,255,255,.12);
+  --a:#5a5fcf; --a2:#7c5cdb; --shoovo:#f47c20;
+  --text:#eef0f6; --muted:#5a6378; --muted2:#8892a4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Cabinet Grotesk',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* EDIT */
+[contenteditable]:focus{outline:1px dashed rgba(90,95,207,.5);outline-offset:3px;border-radius:3px}
+[contenteditable]:hover:not(:focus){outline:1px dashed rgba(255,255,255,.1);outline-offset:3px;border-radius:3px;cursor:text}
+.edit-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(7,11,23,.92);backdrop-filter:blur(12px);border:1px solid var(--border-hi);color:var(--muted2);font-size:.68rem;padding:.45rem 1.1rem;border-radius:100px;z-index:9998;pointer-events:none;letter-spacing:.04em;font-family:'DM Mono',monospace;white-space:nowrap}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:62px;padding:0 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(3,5,13,.82);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:-.02em;color:#fff;text-decoration:none;display:flex;align-items:center}
+.logo-dot{color:var(--a);font-size:1.5rem;line-height:0;margin:0 .05rem -.1rem}
+.nav-links{display:flex;gap:2.25rem;list-style:none}
+.nav-links a{color:var(--muted2);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+
+/* LANG TOGGLE */
+.lang-toggle{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.lang-btn{padding:.35rem .7rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'DM Mono',monospace;transition:all .15s}
+.lang-btn.active{background:rgba(255,255,255,.08);color:#fff}
+
+.nav-cta{background:transparent;border:1px solid var(--border-hi);color:#fff;padding:.45rem 1.2rem;border-radius:8px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:background .2s,border-color .2s}
+.nav-cta:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2)}
+
+/* BG */
+.bg-shape{position:absolute;pointer-events:none;border-radius:50%;filter:blur(120px)}
+.bg-shape-1{width:600px;height:500px;background:rgba(90,95,207,.09);top:-100px;right:-50px;animation:sd 20s ease-in-out infinite alternate}
+.bg-shape-2{width:350px;height:350px;background:rgba(124,92,219,.07);bottom:5%;left:10%;animation:sd 15s ease-in-out infinite alternate-reverse}
+@keyframes sd{from{transform:translate(0,0)}to{transform:translate(30px,25px)}}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 100% 80% at 30% 40%,black,transparent 80%)}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:9rem 3rem 6rem}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem;animation:up .7s ease both;display:flex;align-items:center;gap:.75rem}
+.hero-eyebrow::before{content:'';display:inline-block;width:24px;height:1px;background:var(--a)}
+.hero-h1{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:clamp(3.5rem,7.5vw,7rem);font-weight:700;line-height:.93;letter-spacing:-.04em;margin-bottom:2rem;animation:up .75s .08s ease both}
+.hero-h1 .outline{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);display:block}
+.hero-desc{max-width:440px;color:var(--muted2);font-size:1rem;line-height:1.8;margin-bottom:3rem;animation:up .75s .18s ease both}
+.hero-actions{display:flex;gap:.75rem;align-items:center;animation:up .75s .26s ease both;flex-wrap:wrap}
+.scroll-hint{position:absolute;bottom:2.5rem;left:3rem;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.65rem;animation:up .75s .5s ease both}
+.scroll-line{width:32px;height:1px;background:var(--muted)}
+.hero-stats{position:absolute;bottom:2.5rem;right:3rem;display:flex;gap:3rem;animation:up .75s .45s ease both}
+.hs-item{text-align:right}
+.hs-n{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:-.03em;line-height:1}
+.hs-l{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.2rem}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* BUTTONS */
+.btn-solid{background:#fff;color:#03050d;padding:.7rem 1.65rem;border-radius:9px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:.9rem;text-decoration:none;transition:opacity .2s,transform .2s;display:inline-flex;align-items:center;gap:.4rem;border:none;cursor:pointer}
+.btn-solid:hover{opacity:.9;transform:translateY(-1px)}
+.btn-line{background:transparent;border:1px solid var(--border-hi);color:var(--muted2);padding:.7rem 1.5rem;border-radius:9px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-flex;align-items:center;gap:.4rem;cursor:pointer}
+.btn-line:hover{border-color:rgba(255,255,255,.2);color:#fff}
+.btn-shoovo{background:var(--shoovo);color:#fff;padding:.7rem 1.65rem;border-radius:9px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:.9rem;text-decoration:none;transition:opacity .2s,transform .2s;display:inline-flex;align-items:center;gap:.4rem;border:none;cursor:pointer}
+.btn-shoovo:hover{opacity:.9;transform:translateY(-1px)}
+
+/* MARQUEE */
+.marquee-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--s1);padding:1.5rem 0;overflow:hidden}
+.marquee-inner{display:flex;gap:3rem;animation:ticker 25s linear infinite;width:max-content}
+.marquee-inner:hover{animation-play-state:paused}
+.mi{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.05em;color:rgba(255,255,255,.2);white-space:nowrap;transition:color .2s;cursor:default}
+.mi:hover{color:rgba(255,255,255,.55)}
+.mi-dot{color:var(--a);opacity:.5;font-size:.5rem}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION */
+.wrap{max-width:1200px;margin:0 auto;padding:8rem 3rem}
+.sec-label{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--a);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.65rem}
+.sec-label::after{content:'';display:block;width:28px;height:1px;background:var(--a)}
+.sec-h{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.04;letter-spacing:-.03em}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+/* SHOOVO */
+#shoovo{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.shoovo-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.shoovo-kicker{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--shoovo);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.shoovo-kicker::before{content:'';width:14px;height:1px;background:var(--shoovo);display:block}
+.shoovo-h{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:700;line-height:.98;letter-spacing:-.04em;margin-bottom:1.5rem}
+.shoovo-desc{color:var(--muted2);line-height:1.8;font-size:.95rem;margin-bottom:2rem;max-width:420px}
+.shoovo-nums{display:flex;gap:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.sn-val{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:-.03em;line-height:1}
+.sn-key{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.25rem}
+.shoovo-mockup{position:relative;border-radius:20px;overflow:hidden;background:var(--s2);border:1px solid var(--border);aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.shoovo-mockup-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(244,124,32,.06) 0%,transparent 50%),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(244,124,32,.05) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(244,124,32,.05) 40px)}
+.shoovo-wordmark{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:3.5rem;font-weight:700;letter-spacing:-.04em;color:var(--shoovo);opacity:.9;position:relative;z-index:1;text-shadow:0 0 60px rgba(244,124,32,.3)}
+.shoovo-mockup-badge{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;background:rgba(3,5,13,.85);backdrop-filter:blur(10px);border:1px solid rgba(244,124,32,.15);border-radius:12px;padding:1rem 1.25rem;display:flex;justify-content:space-between;font-size:.78rem;z-index:2}
+.smb-label{color:var(--muted2)}
+.smb-val{font-weight:700;color:var(--shoovo)}
+
+/* SERVICES */
+#services{background:var(--bg)}
+.services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;gap:2rem;flex-wrap:wrap}
+.services-subtext{color:var(--muted2);font-size:.9rem;line-height:1.75;max-width:360px}
+.cards{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.card{background:var(--s1);padding:2.25rem;transition:background .25s;grid-column:span 4;position:relative;overflow:hidden}
+.card:hover{background:var(--s2)}
+.card:hover .card-arrow{opacity:1;transform:translate(0,0)}
+.card.span6{grid-column:span 6}
+.card.span12{grid-column:span 12;display:grid;grid-template-columns:1fr 1.2fr;gap:2.5rem;align-items:center}
+.card-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:1.75rem}
+.card-title{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.65rem;line-height:1.2}
+.card-desc{font-size:.82rem;color:var(--muted2);line-height:1.7}
+.card-tag{display:inline-flex;margin-top:1.5rem;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.2rem .6rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:5px}
+.card-arrow{position:absolute;top:2rem;right:2rem;font-size:.9rem;color:var(--muted);opacity:0;transform:translate(-4px,4px);transition:opacity .2s,transform .2s}
+.card-visual{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.card-visual-text{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:2.5rem;font-weight:700;letter-spacing:-.04em;color:rgba(255,255,255,.06)}
+.card-shoovo-tag{display:inline-flex;align-items:center;gap:.4rem;margin-top:1.25rem;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--shoovo);background:rgba(244,124,32,.07);border:1px solid rgba(244,124,32,.18);border-radius:6px;padding:.25rem .65rem;font-family:'DM Mono',monospace}
+.card-shoovo-dot{width:5px;height:5px;border-radius:50%;background:var(--shoovo)}
+.card-free-tag{display:inline-flex;margin-top:1.25rem;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4ade80;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.15);border-radius:6px;padding:.25rem .65rem;font-family:'DM Mono',monospace}
+
+/* FAQ / SSS */
+#faq{background:var(--s1);border-top:1px solid var(--border)}
+.faq-layout{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:start}
+.faq-intro{position:sticky;top:80px}
+.faq-intro-sub{color:var(--muted2);font-size:.9rem;line-height:1.75;margin-top:1rem}
+.faq-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;color:var(--text);text-align:left;padding:1.5rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:'Cabinet Grotesk',sans-serif;font-size:.95rem;font-weight:700;transition:color .2s}
+.faq-q:hover{color:rgba(255,255,255,.8)}
+.faq-icon{font-size:1.1rem;color:var(--muted);transition:transform .3s,color .3s;flex-shrink:0;font-family:'DM Mono',monospace;font-size:.85rem}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--a)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.5rem}
+.faq-a p{color:var(--muted2);font-size:.875rem;line-height:1.8}
+
+/* WHY */
+#why{background:var(--bg);border-top:1px solid var(--border)}
+.why-layout{display:grid;grid-template-columns:5fr 4fr;gap:6rem;align-items:start}
+.why-items{margin-top:3rem;border-top:1px solid var(--border)}
+.why-row{display:grid;grid-template-columns:2.5rem 1fr;gap:1.25rem;padding:1.75rem 0;border-bottom:1px solid var(--border);align-items:start}
+.why-num{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);padding-top:.2rem}
+.why-title{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.why-text{font-size:.82rem;color:var(--muted2);line-height:1.7}
+.why-right{padding-top:1rem}
+.big-n{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:6rem;font-weight:700;line-height:.9;letter-spacing:-.05em;color:rgba(255,255,255,.07);margin-bottom:.5rem}
+.big-n-label{font-size:.78rem;color:var(--muted2);letter-spacing:.04em;margin-bottom:3rem}
+.why-grid-nums{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-top:2rem}
+.wgn{background:var(--s2);padding:1.5rem}
+.wgn-n{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:-.03em}
+.wgn-l{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.25rem}
+
+/* CTA */
+#cta{background:var(--s1);border-top:1px solid var(--border);padding:10rem 3rem;position:relative;overflow:hidden}
+.cta-blob{position:absolute;width:500px;height:400px;background:rgba(90,95,207,.07);border-radius:50%;filter:blur(100px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-inner{max-width:560px;position:relative}
+.cta-h{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;letter-spacing:-.04em;line-height:.95;margin-bottom:1.5rem}
+.cta-h .cta-outline{-webkit-text-stroke:1.5px rgba(255,255,255,.2);color:transparent;display:block}
+.cta-sub{color:var(--muted2);font-size:.95rem;line-height:1.75;margin-bottom:2.5rem;max-width:420px}
+.cta-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 3rem 2.5rem}
+.footer-top{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3.5rem;border-bottom:1px solid var(--border)}
+.f-brand{font-family:'Clash Display','Cabinet Grotesk',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:.75rem}
+.f-brand em{color:var(--a);font-style:normal}
+.f-tagline{color:var(--muted2);font-size:.83rem;line-height:1.7;margin-bottom:1.5rem}
+.f-socials{display:flex;gap:.5rem}
+.f-soc{width:32px;height:32px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--muted);text-decoration:none;transition:all .15s}
+.f-soc:hover{background:rgba(255,255,255,.06);color:#fff;border-color:var(--border-hi)}
+.f-col h5{font-size:.78rem;font-weight:700;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4)}
+.f-col ul{list-style:none}
+.f-col li{margin-bottom:.55rem}
+.f-col a{color:var(--muted2);font-size:.83rem;text-decoration:none;transition:color .15s}
+.f-col a:hover{color:#fff}
+.footer-bottom{max-width:1200px;margin:0 auto;padding-top:1.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.f-copy{color:var(--muted);font-size:.75rem;font-family:'DM Mono',monospace}
+
+/* PARTNERS */
+#partners{background:var(--bg);border-top:1px solid var(--border)}
+.partners-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem}
+.partners-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+.partner-slot{background:var(--s1);aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;transition:background .2s;overflow:hidden}
+.partner-slot:hover{background:var(--s2)}
+.partner-slot img{max-width:65%;max-height:50%;object-fit:contain;filter:brightness(0) invert(1);opacity:.35;transition:opacity .2s}
+.partner-slot:hover img{opacity:.6}
+.partner-slot.empty .add-icon{display:flex}
+.partner-slot.filled .add-icon{display:none}
+.add-icon{position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:.4rem;display:none}
+.partner-slot:hover .add-icon{display:flex}
+.partner-slot.filled:hover .add-icon{display:flex;background:rgba(3,5,13,.7)}
+.add-icon-plus{width:28px;height:28px;border-radius:8px;border:1px dashed rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem}
+.add-icon-label{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.partner-remove{position:absolute;top:.5rem;right:.5rem;width:20px;height:20px;border-radius:5px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.25);color:#f87171;font-size:.65rem;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+.partner-slot.filled:hover .partner-remove{display:flex}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.r.on{opacity:1;transform:none}
+.r.visible{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+
+/* HIDDEN LANG */
+[data-en],[data-tr]{transition:opacity .2s}
+body.en [data-tr]{display:none}
+body.en [data-en]{display:block}
+body.tr [data-en]{display:none}
+body.tr [data-tr]{display:block}
+[data-en]{display:none}
+</style>
+</head>
+<body class="tr">
+
+<div class="edit-hint">✎ Metinlere tıkla, düzenle — Alt+L: logo yükle</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo" id="logo-el">asp<span class="logo-dot">·</span>iyas</a>
+  <ul class="nav-links">
+    <li><a href="#services" data-tr>Hizmetler</a><a href="#services" data-en>Services</a></li>
+    <li><a href="#why" data-tr>Hakkımızda</a><a href="#why" data-en>About</a></li>
+    <li><a href="/app-studio" data-tr>App Studio</a><a href="/app-studio" data-en>App Studio</a></li>
+    <li><a href="/iletisim" data-tr>İletişim</a><a href="/contact" data-en>Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="nav-cta" contenteditable="true" data-tr>Teklif Al</button>
+    <button class="nav-cta" contenteditable="true" data-en>Get a Quote</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="bg-shape bg-shape-1"></div>
+  <div class="bg-shape bg-shape-2"></div>
+
+  <div class="hero-eyebrow">
+    <span data-tr contenteditable="true">Antalya · Türkiye · Tech House</span>
+    <span data-en contenteditable="true">Antalya · Turkey · Tech House</span>
+  </div>
+
+  <h1 class="hero-h1">
+    <span data-tr contenteditable="true">Ürünler İnşa Ediyoruz.</span>
+    <span data-en contenteditable="true">We Build Products.</span>
+    <span class="outline" data-tr contenteditable="true">Markalar Büyütüyoruz.</span>
+    <span class="outline" data-en contenteditable="true">We Grow Brands.</span>
+  </h1>
+
+  <p class="hero-desc">
+    <span data-tr contenteditable="true">Aspiyas; kendi SaaS ürünlerini geliştiren ve markalara veri odaklı dijital büyüme hizmetleri sunan bir teknoloji şirketidir.</span>
+    <span data-en contenteditable="true">Aspiyas is a tech house that builds its own SaaS products while providing data-driven digital growth services to brands.</span>
+  </p>
+
+  <div class="hero-actions">
+    <a href="#services" class="btn-solid">
+      <span data-tr contenteditable="true">Hizmetleri Keşfet →</span>
+      <span data-en contenteditable="true">Explore Services →</span>
+    </a>
+    <a href="#shoovo" class="btn-line">
+      <span data-tr contenteditable="true">Shoovo'yu Gör</span>
+      <span data-en contenteditable="true">See Shoovo</span>
+    </a>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span data-tr>Aşağı kaydır</span>
+    <span data-en>Scroll down</span>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hs-item">
+      <div class="hs-n" contenteditable="true">200+</div>
+      <div class="hs-l"><span data-tr contenteditable="true">Aktif Marka</span><span data-en contenteditable="true">Active Brands</span></div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-n" contenteditable="true">₺50M+</div>
+      <div class="hs-l"><span data-tr contenteditable="true">Yönetilen Bütçe</span><span data-en contenteditable="true">Managed Budget</span></div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-n" contenteditable="true">8+</div>
+      <div class="hs-l"><span data-tr contenteditable="true">Yıl Deneyim</span><span data-en contenteditable="true">Years Experience</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marquee">
+    <span class="mi" contenteditable="true">LC Waikiki</span><span class="mi-dot">✦</span>
+    <span class="mi" contenteditable="true">Vodafone</span><span class="mi-dot">✦</span>
+    <span class="mi" contenteditable="true">Twigy</span><span class="mi-dot">✦</span>
+    <span class="mi" contenteditable="true">Kiralarsın</span><span class="mi-dot">✦</span>
+    <span class="mi" contenteditable="true">Marka A</span><span class="mi-dot">✦</span>
+    <span class="mi" contenteditable="true">Marka B</span><span class="mi-dot">✦</span>
+    <span class="mi" contenteditable="true">Marka C</span><span class="mi-dot">✦</span>
+    <span class="mi" contenteditable="true">Marka D</span><span class="mi-dot">✦</span>
+    <!-- duplicate for seamless -->
+    <span class="mi">LC Waikiki</span><span class="mi-dot">✦</span>
+    <span class="mi">Vodafone</span><span class="mi-dot">✦</span>
+    <span class="mi">Twigy</span><span class="mi-dot">✦</span>
+    <span class="mi">Kiralarsın</span><span class="mi-dot">✦</span>
+    <span class="mi">Marka A</span><span class="mi-dot">✦</span>
+    <span class="mi">Marka B</span><span class="mi-dot">✦</span>
+    <span class="mi">Marka C</span><span class="mi-dot">✦</span>
+    <span class="mi">Marka D</span><span class="mi-dot">✦</span>
+  </div>
+</div>
+
+<!-- SHOOVO -->
+<section id="shoovo">
+  <div class="wrap" style="padding-top:7rem;padding-bottom:7rem">
+    <div class="shoovo-layout">
+      <div class="r">
+        <div class="shoovo-kicker">
+          <span data-tr contenteditable="true">Flagship Ürün</span>
+          <span data-en contenteditable="true">Flagship Product</span>
+        </div>
+        <h2 class="shoovo-h">
+          <span data-tr contenteditable="true">Türkiye'nin<br>İlk UGC<br>Platformu.</span>
+          <span data-en contenteditable="true">Turkey's First<br>UGC<br>Platform.</span>
+        </h2>
+        <p class="shoovo-desc">
+          <span data-tr contenteditable="true">Shoovo, markaları içerik üreticileriyle buluşturarak hızlı ve ekonomik video içerik üretimini mümkün kılıyor. İçerik maliyetini %70'e kadar düşürüyoruz.</span>
+          <span data-en contenteditable="true">Shoovo connects brands with content creators, enabling fast and cost-effective video content production. We reduce content costs by up to 70%.</span>
+        </p>
+        <div class="shoovo-nums">
+          <div><div class="sn-val" contenteditable="true">27+</div><div class="sn-key"><span data-tr contenteditable="true">Aktif Marka</span><span data-en contenteditable="true">Active Brands</span></div></div>
+          <div><div class="sn-val" contenteditable="true">200+</div><div class="sn-key"><span data-tr contenteditable="true">Creator</span><span data-en contenteditable="true">Creators</span></div></div>
+          <div><div class="sn-val" contenteditable="true">%70</div><div class="sn-key"><span data-tr contenteditable="true">Daha Düşük Maliyet</span><span data-en contenteditable="true">Lower Cost</span></div></div>
+        </div>
+        <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+          <a href="https://shoovo.app" class="btn-shoovo">
+            <span data-tr contenteditable="true">shoovo.app →</span>
+            <span data-en contenteditable="true">shoovo.app →</span>
+          </a>
+          <a href="https://brand.shoovo.app" class="btn-line">
+            <span data-tr contenteditable="true">Marka Paneli</span>
+            <span data-en contenteditable="true">Brand Panel</span>
+          </a>
+        </div>
+      </div>
+      <div class="shoovo-mockup r d2">
+        <div class="shoovo-mockup-bg"></div>
+        <div class="shoovo-wordmark">shoovo</div>
+        <div class="shoovo-mockup-badge">
+          <span class="smb-label"><span data-tr contenteditable="true">Bu ay üretilen içerik</span><span data-en contenteditable="true">Content produced this month</span></span>
+          <span class="smb-val" contenteditable="true">1.240 video ↑</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="services-header r">
+      <div>
+        <div class="sec-label"><span data-tr>Hizmetlerimiz</span><span data-en>Services</span></div>
+        <h2 class="sec-h">
+          <span data-tr contenteditable="true">Entegre<br>Dijital Büyüme</span>
+          <span data-en contenteditable="true">Integrated<br>Digital Growth</span>
+        </h2>
+      </div>
+      <p class="services-subtext">
+        <span data-tr contenteditable="true">Performans pazarlamadan AI araç geliştirmeye kadar — veri odaklı, ölçülebilir ve entegre hizmetler.</span>
+        <span data-en contenteditable="true">From performance marketing to AI tool development — data-driven, measurable and integrated services.</span>
+      </p>
+    </div>
+
+    <div class="cards r d1">
+      <div class="card span12">
+        <div>
+          <div class="card-icon">🎯</div>
+          <div class="card-title"><span data-tr contenteditable="true">Veri Bilimi Odaklı Performans Pazarlama</span><span data-en contenteditable="true">Data Science-Driven Performance Marketing</span></div>
+          <div class="card-desc"><span data-tr contenteditable="true">Google Ads, Meta ve TikTok kampanyalarınızı yapay zeka destekli optimizasyon ile yönetiyoruz. ROAS'ınız sistematik şekilde büyüyor.</span><span data-en contenteditable="true">We manage your Google Ads, Meta and TikTok campaigns with AI-powered optimization. Your ROAS grows systematically.</span></div>
+          <span class="card-tag" contenteditable="true">Google · Meta · TikTok · Data Science</span>
+        </div>
+        <div class="card-visual"><span class="card-visual-text">ROAS↑</span></div>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="card span6 r">
+        <div class="card-icon">🎬</div>
+        <div class="card-title"><span data-tr contenteditable="true">UGC Hizmeti</span><span data-en contenteditable="true">UGC Service</span></div>
+        <div class="card-desc"><span data-tr contenteditable="true">Shoovo altyapısıyla markanız için hızlı ve ekonomik video içerikler üretiyoruz. Ajans fiyatının çok altında, creator kalitesinde.</span><span data-en contenteditable="true">We produce fast and cost-effective video content for your brand via Shoovo. Creator quality at a fraction of agency cost.</span></div>
+        <span class="card-shoovo-tag"><span class="card-shoovo-dot"></span>Shoovo Powered</span>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="card span6 r d1">
+        <div class="card-icon">📱</div>
+        <div class="card-title"><span data-tr contenteditable="true">Sosyal Medya Yönetimi</span><span data-en contenteditable="true">Social Media Management</span></div>
+        <div class="card-desc"><span data-tr contenteditable="true">Strateji, içerik üretimi ve topluluk yönetimini tek çatı altında sunuyoruz.</span><span data-en contenteditable="true">We provide strategy, content production and community management under one roof.</span></div>
+        <span class="card-tag" contenteditable="true">Instagram · TikTok · LinkedIn</span>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="card r">
+        <div class="card-icon">💻</div>
+        <div class="card-title"><span data-tr contenteditable="true">Web Sitesi Tasarım & Geliştirme</span><span data-en contenteditable="true">Web Design & Development</span></div>
+        <div class="card-desc"><span data-tr contenteditable="true">Hızlı, modern ve dönüşüm odaklı web siteleri. Next.js ve performans odaklı mimari.</span><span data-en contenteditable="true">Fast, modern and conversion-focused websites. Next.js and performance-first architecture.</span></div>
+        <span class="card-tag" contenteditable="true">Next.js · SEO · CRO</span>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="card r d1">
+        <div class="card-icon">🧩</div>
+        <div class="card-title"><span data-tr contenteditable="true">Yazılım Danışmanlığı</span><span data-en contenteditable="true">Software Consulting</span></div>
+        <div class="card-desc"><span data-tr contenteditable="true">Ürün yol haritası, teknik mimari ve geliştirme süreç danışmanlığı.</span><span data-en contenteditable="true">Product roadmap, technical architecture and development process consulting.</span></div>
+        <span class="card-tag" contenteditable="true">Roadmap · Architecture</span>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="card r d2">
+        <div class="card-icon">🤖</div>
+        <div class="card-title"><span data-tr contenteditable="true">Markalara Özel AI Araç Geliştirme</span><span data-en contenteditable="true">Custom AI Tool Development</span></div>
+        <div class="card-desc"><span data-tr contenteditable="true">İş süreçlerinize özel yapay zeka araçları ve otomasyonlar geliştiriyoruz.</span><span data-en contenteditable="true">We build custom AI tools and automations tailored to your business processes.</span></div>
+        <span class="card-tag" contenteditable="true">LLM · Automation · API</span>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="card span6 r">
+        <div class="card-icon">📲</div>
+        <div class="card-title"><span data-tr contenteditable="true">Mobile App Growth</span><span data-en contenteditable="true">Mobile App Growth</span></div>
+        <div class="card-desc"><span data-tr contenteditable="true">ASO, kullanıcı edinimi ve retention stratejileriyle uygulamanızı büyütüyoruz.</span><span data-en contenteditable="true">We grow your app with ASO, user acquisition and retention strategies.</span></div>
+        <span class="card-tag" contenteditable="true">ASO · UA · Retention</span>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="card span6 r d1">
+        <div class="card-icon">🔍</div>
+        <div class="card-title"><span data-tr contenteditable="true">Dijital Denetim Hizmeti</span><span data-en contenteditable="true">Digital Audit Service</span></div>
+        <div class="card-desc"><span data-tr contenteditable="true">Mevcut dijital varlıklarınızı analiz ederek büyüme fırsatlarını raporluyoruz. Ücretsiz başlayın.</span><span data-en contenteditable="true">We analyze your existing digital assets and report growth opportunities. Start for free.</span></div>
+        <span class="card-free-tag"><span data-tr>Ücretsiz Başlangıç</span><span data-en>Free to Start</span></span>
+        <span class="card-arrow">↗</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners">
+  <div class="wrap" style="padding-top:6rem;padding-bottom:6rem">
+    <div class="partners-header r">
+      <div>
+        <div class="sec-label"><span data-tr>Partnerlerimiz</span><span data-en>Our Partners</span></div>
+        <h2 class="sec-h" style="font-size:clamp(1.6rem,3vw,2.4rem)">
+          <span data-tr contenteditable="true">Güvendiğimiz<br>Ekosistem.</span>
+          <span data-en contenteditable="true">Our Trusted<br>Ecosystem.</span>
+        </h2>
+      </div>
+      <p style="color:var(--muted2);font-size:.85rem;line-height:1.75;max-width:320px">
+        <span data-tr contenteditable="true">Teknoloji, medya ve pazarlama alanındaki stratejik iş ortaklarımız.</span>
+        <span data-en contenteditable="true">Our strategic partners in technology, media and marketing.</span>
+      </p>
+    </div>
+    <div class="partners-grid r d1" id="partners-grid"></div>
+    <p style="margin-top:1.25rem;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;text-align:center">
+      <span data-tr>Boş alana tıklayarak logo ekle · Logoya tıklayarak değiştir</span>
+      <span data-en>Click empty slot to add logo · Click logo to replace</span>
+    </p>
+  </div>
+</section>
+
+<!-- FAQ / SSS -->
+<section id="faq">
+  <div class="wrap" style="padding-top:7rem;padding-bottom:7rem">
+    <div class="faq-layout">
+      <div class="faq-intro r">
+        <div class="sec-label"><span data-tr>Sık Sorulan Sorular</span><span data-en>FAQ</span></div>
+        <h2 class="sec-h">
+          <span data-tr contenteditable="true">Aklınızdaki<br>Sorular.</span>
+          <span data-en contenteditable="true">Questions<br>You May Have.</span>
+        </h2>
+        <p class="faq-intro-sub">
+          <span data-tr contenteditable="true">Başka sorunuz varsa bize ulaşın — genellikle 1 iş günü içinde yanıt veriyoruz.</span>
+          <span data-en contenteditable="true">Have more questions? Reach out — we usually respond within 1 business day.</span>
+        </p>
+      </div>
+
+      <div class="faq-list r d1">
+        <div class="faq-item open">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span data-tr contenteditable="true">Aspiyas hangi hizmetleri sunuyor?</span>
+            <span data-en contenteditable="true">What services does Aspiyas offer?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-tr contenteditable="true">Veri bilimi odaklı performans pazarlama, UGC içerik hizmeti (Shoovo), sosyal medya yönetimi, web sitesi tasarım ve geliştirme, yazılım danışmanlığı, mobile app growth, dijital denetim ve markalara özel AI araç geliştirme.</span><span data-en contenteditable="true">We offer data-driven performance marketing, UGC content (Shoovo), social media management, web design and development, software consulting, mobile app growth, digital audit, and custom AI tool development.</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span data-tr contenteditable="true">Shoovo nedir, nasıl çalışır?</span>
+            <span data-en contenteditable="true">What is Shoovo and how does it work?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-tr contenteditable="true">Shoovo, Aspiyas tarafından geliştirilen Türkiye'nin ilk UGC SaaS platformudur. Markalar brief girer, platformdaki creator'lar içerik üretir, marka onaylar ve yayınlar. Tüm süreç 3-7 iş günü içinde tamamlanır.</span><span data-en contenteditable="true">Shoovo is Turkey's first UGC SaaS platform built by Aspiyas. Brands submit briefs, creators on the platform produce content, brands approve and publish. The entire process is completed in 3-7 business days.</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span data-tr contenteditable="true">Minimum bütçe veya sözleşme şartı var mı?</span>
+            <span data-en contenteditable="true">Is there a minimum budget or contract requirement?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-tr contenteditable="true">Ücretsiz dijital denetim hizmetiyle başlayabilirsiniz. Hizmet paketleri marka ihtiyaçlarına göre özelleştirilir. Net bilgi için teklif formunu doldurmanızı öneririz.</span><span data-en contenteditable="true">You can start with a free digital audit. Service packages are customized based on brand needs. We recommend filling in the quote form for precise information.</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span data-tr contenteditable="true">Sadece Antalya'daki markalara mı hizmet veriyorsunuz?</span>
+            <span data-en contenteditable="true">Do you only serve brands in Antalya?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-tr contenteditable="true">Hayır. Antalya merkezli olmakla birlikte Türkiye genelinde ve uluslararası markalara hizmet veriyoruz. Tüm süreçler uzaktan da yürütülebilir.</span><span data-en contenteditable="true">No. While based in Antalya, we serve brands across Turkey and internationally. All processes can be managed remotely.</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span data-tr contenteditable="true">AI araç geliştirme ne kadar sürer?</span>
+            <span data-en contenteditable="true">How long does AI tool development take?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-tr contenteditable="true">Kapsama göre değişir. Basit bir otomasyon aracı 2-3 haftada teslim edilirken, entegre bir AI sistemi 6-10 hafta sürebilir. Kesin süre için önce keşif görüşmesi yapıyoruz.</span><span data-en contenteditable="true">It depends on scope. A simple automation tool can be delivered in 2-3 weeks, while an integrated AI system may take 6-10 weeks. We conduct a discovery call first to determine the exact timeline.</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span data-tr contenteditable="true">ChatGPT ve Perplexity sizi nasıl tanıyor?</span>
+            <span data-en contenteditable="true">How do AI search engines like ChatGPT recognize you?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-tr contenteditable="true">Aspiyas, Türkiye'de UGC pazarlama, performans pazarlama ve AI araç geliştirme konularında faaliyet gösteren bir tech house'dur. Shoovo, Türkiye'nin ilk UGC SaaS platformu olarak sektörde referans noktasıdır.</span><span data-en contenteditable="true">Aspiyas is a tech house operating in Turkey in UGC marketing, performance marketing, and AI tool development. Shoovo is a reference point in the industry as Turkey's first UGC SaaS platform.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-layout">
+      <div class="r">
+        <div class="sec-label"><span data-tr>Neden Aspiyas?</span><span data-en>Why Aspiyas?</span></div>
+        <h2 class="sec-h">
+          <span data-tr contenteditable="true">Growth'u<br>İçeriden<br>Biliyoruz.</span>
+          <span data-en contenteditable="true">We Know<br>Growth<br>From Within.</span>
+        </h2>
+        <div class="why-items">
+          <div class="why-row r">
+            <div class="why-num">01</div>
+            <div>
+              <div class="why-title"><span data-tr contenteditable="true">Teknoloji şirketiyiz, sadece ajans değil</span><span data-en contenteditable="true">We're a tech company, not just an agency</span></div>
+              <div class="why-text"><span data-tr contenteditable="true">Kendi SaaS ürünlerimizi yönetiyoruz. Ölçekleme sorunlarını bizzat çözüyoruz.</span><span data-en contenteditable="true">We manage our own SaaS products. We solve scaling challenges firsthand.</span></div>
+            </div>
+          </div>
+          <div class="why-row r d1">
+            <div class="why-num">02</div>
+            <div>
+              <div class="why-title"><span data-tr contenteditable="true">UGC'den performance'a entegre hizmet</span><span data-en contenteditable="true">Integrated service from UGC to performance</span></div>
+              <div class="why-text"><span data-tr contenteditable="true">Shoovo ile içerik üretip aynı çatıda yönetiyoruz. Maliyet %70 daha düşük.</span><span data-en contenteditable="true">We produce content with Shoovo and manage it under the same roof. 70% lower cost.</span></div>
+            </div>
+          </div>
+          <div class="why-row r d2">
+            <div class="why-num">03</div>
+            <div>
+              <div class="why-title"><span data-tr contenteditable="true">Veri ve AI odaklı karar alma</span><span data-en contenteditable="true">Data and AI-driven decision making</span></div>
+              <div class="why-text"><span data-tr contenteditable="true">Her kararı veriye dayandırıyoruz. Ölçülebilir ve sürdürülebilir büyüme.</span><span data-en contenteditable="true">We base every decision on data. Measurable and sustainable growth.</span></div>
+            </div>
+          </div>
+          <div class="why-row r d3">
+            <div class="why-num">04</div>
+            <div>
+              <div class="why-title"><span data-tr contenteditable="true">8+ yıl büyük marka deneyimi</span><span data-en contenteditable="true">8+ years of enterprise brand experience</span></div>
+              <div class="why-text"><span data-tr contenteditable="true">LC Waikiki, Vodafone, Morhipo ve Boyner ile çalışmış ekip.</span><span data-en contenteditable="true">A team that has worked with LC Waikiki, Vodafone, Morhipo and Boyner.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-right r d2">
+        <div class="big-n" contenteditable="true">8+</div>
+        <div class="big-n-label"><span data-tr contenteditable="true">Yıl Sektör Deneyimi</span><span data-en contenteditable="true">Years of Industry Experience</span></div>
+        <div class="why-grid-nums">
+          <div class="wgn"><div class="wgn-n" contenteditable="true">200+</div><div class="wgn-l"><span data-tr contenteditable="true">Aktif Marka</span><span data-en contenteditable="true">Active Brands</span></div></div>
+          <div class="wgn"><div class="wgn-n" contenteditable="true">500+</div><div class="wgn-l"><span data-tr contenteditable="true">Creator</span><span data-en contenteditable="true">Creators</span></div></div>
+          <div class="wgn"><div class="wgn-n" contenteditable="true">%70</div><div class="wgn-l"><span data-tr contenteditable="true">Düşük İçerik Maliyeti</span><span data-en contenteditable="true">Lower Content Cost</span></div></div>
+          <div class="wgn"><div class="wgn-n" contenteditable="true">3</div><div class="wgn-l"><span data-tr contenteditable="true">Aktif SaaS Ürün</span><span data-en contenteditable="true">Active SaaS Products</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-blob"></div>
+  <div class="wrap" style="padding:0">
+    <div class="cta-inner r">
+      <h2 class="cta-h">
+        <span data-tr contenteditable="true">Büyümeye</span>
+        <span data-en contenteditable="true">Ready to</span>
+        <span class="cta-outline" data-tr contenteditable="true">Hazır mısınız?</span>
+        <span class="cta-outline" data-en contenteditable="true">Grow?</span>
+      </h2>
+      <p class="cta-sub">
+        <span data-tr contenteditable="true">Ücretsiz dijital denetim ile başlayın. Büyüme fırsatlarınızı birlikte keşfedelim.</span>
+        <span data-en contenteditable="true">Start with a free digital audit. Let's discover your growth opportunities together.</span>
+      </p>
+      <div class="cta-btns">
+        <a href="#" class="btn-solid">
+          <span data-tr contenteditable="true">Ücretsiz Denetim Al →</span>
+          <span data-en contenteditable="true">Get Free Audit →</span>
+        </a>
+        <a href="#" class="btn-line">
+          <span data-tr contenteditable="true">Demo Talep Et</span>
+          <span data-en contenteditable="true">Request Demo</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand">asp<em>·</em>iyas</div>
+      <p class="f-tagline" contenteditable="true">We build products.<br>We grow brands.<br><br>Antalya, Türkiye<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ae2efe6e6e5caebf9fae3f3ebf9a4e9e5e7">[email&#160;protected]</a></p>
+      <div class="f-socials">
+        <a href="#" class="f-soc">in</a>
+        <a href="#" class="f-soc">𝕏</a>
+        <a href="#" class="f-soc">ig</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h5><span data-tr>Ürünler</span><span data-en>Products</span></h5>
+      <ul>
+        <li><a href="#" contenteditable="true">Shoovo</a></li>
+        <li><a href="#" contenteditable="true">Dreemart</a></li>
+        <li><a href="#" contenteditable="true">Benche</a></li>
+        <li><a href="#" contenteditable="true">Musicifal</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5><span data-tr>Hizmetler</span><span data-en>Services</span></h5>
+      <ul>
+        <li><a href="#" contenteditable="true"><span data-tr>Performans Pazarlama</span><span data-en>Performance Marketing</span></a></li>
+        <li><a href="#" contenteditable="true">UGC</a></li>
+        <li><a href="#" contenteditable="true"><span data-tr>Sosyal Medya</span><span data-en>Social Media</span></a></li>
+        <li><a href="#" contenteditable="true">AI</a></li>
+        <li><a href="#" contenteditable="true"><span data-tr>Dijital Denetim</span><span data-en>Digital Audit</span></a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5><span data-tr>Şirket</span><span data-en>Company</span></h5>
+      <ul>
+        <li><a href="#" contenteditable="true"><span data-tr>Hakkımızda</span><span data-en>About</span></a></li>
+        <li><a href="#" contenteditable="true">App Studio</a></li>
+        <li><a href="#" contenteditable="true"><span data-tr>İletişim</span><span data-en>Contact</span></a></li>
+        <li><a href="#" contenteditable="true">KVKK</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="f-copy" contenteditable="true">© 2025 Aspiyas Teknoloji ve Ticaret A.Ş.</span>
+    <span class="f-copy" contenteditable="true"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5139343d3d3e11302221382830227f323e3c">[email&#160;protected]</a></span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Reveal
+const els = document.querySelectorAll('.r');
+const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('on'); }), { threshold:.07 });
+els.forEach(el => obs.observe(el));
+
+// Lang toggle
+function setLang(lang) {
+  document.body.className = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === lang));
+}
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Logo upload: Alt + click
+document.getElementById('logo-el').addEventListener('click', function(e) {
+  if (!e.altKey) return;
+  e.preventDefault();
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*';
+  inp.onchange = ev => {
+    const file = ev.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = re => {
+      const img = document.createElement('img');
+      img.src = re.result;
+      img.style.cssText = 'height:26px;width:auto;object-fit:contain;vertical-align:middle';
+      this.innerHTML = '';
+      this.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  };
+  inp.click();
+});
+
+// ── PARTNERS ──
+const SLOT_COUNT = 10;
+const partners = Array(SLOT_COUNT).fill(null); // null = boş, string = dataURL
+
+function renderPartners() {
+  const grid = document.getElementById('partners-grid');
+  grid.innerHTML = '';
+  partners.forEach((src, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'partner-slot ' + (src ? 'filled' : 'empty');
+    slot.title = src ? 'Logo değiştirmek için tıkla' : 'Logo eklemek için tıkla';
+
+    if (src) {
+      const img = document.createElement('img');
+      img.src = src; img.alt = 'Partner logo';
+      slot.appendChild(img);
+
+      // Remove button
+      const rm = document.createElement('div');
+      rm.className = 'partner-remove';
+      rm.innerHTML = '✕';
+      rm.title = 'Kaldır';
+      rm.onclick = (e) => { e.stopPropagation(); partners[i] = null; renderPartners(); };
+      slot.appendChild(rm);
+    }
+
+    // Add icon overlay
+    const addIcon = document.createElement('div');
+    addIcon.className = 'add-icon';
+    addIcon.innerHTML = `<div class="add-icon-plus">+</div><div class="add-icon-label">${src ? 'Değiştir' : 'Logo Ekle'}</div>`;
+    slot.appendChild(addIcon);
+
+    slot.onclick = () => openLogoUpload(i);
+    grid.appendChild(slot);
+  });
+}
+
+function openLogoUpload(index) {
+  const inp = document.createElement('input

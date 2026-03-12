@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aspiyas — Sayfa Önizlemeleri</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,800,600&f[]=cabinet-grotesk@400,500,700,800,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03050d;--s1:#070b17;--s2:#0c1120;
+  --border:rgba(255,255,255,.06);--border-hi:rgba(255,255,255,.12);
+  --a:#5a5fcf;--a2:#7c5cdb;--shoovo:#f47c20;
+  --text:#eef0f6;--muted:#5a6378;--muted2:#8892a4;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Cabinet Grotesk',Inter,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── SWITCHER ── */
+.pnav{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;background:rgba(3,5,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
+.pnav-logo{font-family:'Clash Display',sans-serif;font-size:.95rem;font-weight:700;color:#fff;text-decoration:none}
+.pnav-logo em{color:var(--a);font-style:normal}
+.ptabs{display:flex;gap:.2rem}
+.ptab{background:none;border:1px solid transparent;color:var(--muted2);padding:.3rem .85rem;border-radius:7px;font-family:'Cabinet Grotesk',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s}
+.ptab:hover{color:#fff;border-color:var(--border)}
+.ptab.on{background:rgba(90,95,207,.12);border-color:rgba(90,95,207,.3);color:#a5b4fc}
+.phint{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted)}
+
+.pg{display:none;padding-top:52px}
+.pg.on{display:block}
+
+/* ── SHARED NAV ── */
+.snav{position:sticky;top:52px;z-index:100;height:60px;padding:0 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(3,5,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Clash Display',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;text-decoration:none}
+.logo em{color:var(--a);font-style:normal}
+.snav-links{display:flex;gap:2rem;list-style:none}
+.snav-links a{color:var(--muted2);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .15s}
+.snav-links a:hover,.snav-links a.cur{color:#fff}
+.ncta{background:none;border:1px solid var(--border-hi);color:#fff;padding:.4rem 1.1rem;border-radius:8px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;transition:background .2s}
+.ncta:hover{background:rgba(255,255,255,.06)}
+
+/* ── UTILS ── */
+.w{max-width:1200px;margin:0 auto;padding:0 3rem}
+.lbl{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--a);letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
+.lbl::after{content:'';display:block;width:24px;height:1px;background:var(--a)}
+.sh{font-family:'Clash Display',sans-serif;font-size:clamp(1.9rem,3.5vw,3rem);font-weight:700;line-height:1.04;letter-spacing:-.03em}
+.outline{-webkit-text-stroke:1.5px rgba(255,255,255,.2);color:transparent}
+.muted{color:var(--muted2)}
+.tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:.2rem .5rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:5px}
+.btn-w{background:#fff;color:#03050d;padding:.65rem 1.5rem;border-radius:9px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:.875rem;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;transition:opacity .2s,transform .2s}
+.btn-w:hover{opacity:.9;transform:translateY(-1px)}
+.btn-g{background:none;border:1px solid var(--border-hi);color:var(--muted2);padding:.65rem 1.4rem;border-radius:9px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:.875rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;transition:all .2s}
+.btn-g:hover{border-color:rgba(255,255,255,.2);color:#fff}
+
+/* ── FOOTER ── */
+.ft{background:var(--s1);border-top:1px solid var(--border);padding:3.5rem 3rem 2rem}
+.ft-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.fb{font-family:'Clash Display',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+.fb em{color:var(--a);font-style:normal}
+.ft-tag{color:var(--muted2);font-size:.8rem;line-height:1.7;margin-bottom:1rem}
+.ft-soc{display:flex;gap:.4rem}
+.fsoc{width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--muted);text-decoration:none;transition:all .15s}
+.fsoc:hover{color:#fff;background:rgba(255,255,255,.06)}
+.fc h5{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3);margin-bottom:.85rem}
+.fc ul{list-style:none}
+.fc li{margin-bottom:.45rem}
+.fc a{color:var(--muted2);font-size:.8rem;text-decoration:none;transition:color .15s}
+.fc a:hover{color:#fff}
+.ft-bot{max-width:1200px;margin:0 auto;padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.ft-copy{color:var(--muted);font-size:.7rem;font-family:'DM Mono',monospace}
+
+/* noise */
+[contenteditable]:hover{outline:1px dashed rgba(90,95,207,.35);outline-offset:3px;border-radius:4px;cursor:text}
+[contenteditable]:focus{outline:2px solid rgba(90,95,207,.6);outline-offset:3px;border-radius:4px}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+
+/* ════════════════════════════════
+   HİZMETLER
+════════════════════════════════ */
+.svc-hero{padding:7rem 3rem 5rem;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.svc-hero-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.svc-h1{font-family:'Clash Display',sans-serif;font-size:clamp(3rem,6vw,5rem);font-weight:700;line-height:.93;letter-spacing:-.04em;margin-bottom:1.5rem}
+.svc-hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:2.5rem}
+.svc-stat{background:var(--s1);padding:1.25rem 1.5rem}
+.svc-stat-n{font-family:'Clash Display',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.04em}
+.svc-stat-l{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.15rem}
+.svc-visual{position:relative}
+.svc-orb{position:absolute;width:350px;height:350px;background:radial-gradient(circle,rgba(90,95,207,.15) 0%,transparent 70%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+/* service cards grid */
+.svc-grid-sec{background:var(--s1);border-bottom:1px solid var(--border);padding:5rem 3rem}
+.svc-grid-in{max-width:1200px;margin:0 auto}
+.svc-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:3rem}
+.svc-card{background:var(--s1);padding:2rem 1.75rem;position:relative;transition:background .25s;cursor:default;overflow:hidden}
+.svc-card:hover{background:var(--s2)}
+.svc-card-num{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.1em;margin-bottom:1.5rem;display:flex;justify-content:space-between}
+.svc-card-accent{width:24px;height:2px;background:var(--a);border-radius:99px;margin-bottom:1.25rem;transition:width .3s ease}
+.svc-card:hover .svc-card-accent{width:40px}
+.svc-arr{opacity:0;transform:translate(-3px,3px);transition:all .2s;color:var(--muted);display:inline-block}
+.svc-card:hover .svc-arr{opacity:1;transform:translate(0,0)}
+.svc-card-title{font-family:'Clash Display',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.2;margin-bottom:.5rem;letter-spacing:-.02em}
+.svc-card-desc{font-size:.8rem;color:var(--muted2);line-height:1.7;margin-bottom:1rem}
+.svc-card-tags{display:flex;gap:.3rem;flex-wrap:wrap}
+.svc-card-arrow{position:absolute;bottom:1.75rem;right:1.75rem;font-size:.8rem;color:var(--muted);opacity:0;transform:translate(-3px,3px);transition:all .2s}
+.svc-card:hover .svc-card-arrow{opacity:1;transform:translate(0,0)}
+/* process bar */
+.svc-process{background:var(--bg);border-bottom:1px solid var(--border);padding:5rem 3rem}
+.svc-process-in{max-width:1200px;margin:0 auto}
+.process-bar{display:grid;grid-template-columns:repeat(4,1fr);margin-top:3rem;position:relative}
+.process-bar::before{content:'';position:absolute;top:1.5rem;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,var(--a),var(--a2));opacity:.3}
+.pb-step{text-align:center;padding:0 1rem}
+.pb-dot{width:3rem;height:3rem;border-radius:50%;border:1px solid rgba(90,95,207,.3);background:rgba(90,95,207,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-family:'DM Mono',monospace;font-size:.75rem;color:var(--a);position:relative;z-index:1}
+.pb-title{font-family:'Clash Display',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.pb-desc{font-size:.78rem;color:var(--muted2);line-height:1.65}
+/* cta strip */
+.svc-cta-strip{background:var(--s1);border-bottom:1px solid var(--border);padding:5rem 3rem;text-align:center}
+
+/* ════════════════════════════════
+   HAKKIMIZDA
+════════════════════════════════ */
+.about-hero{padding:7rem 3rem 5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.about-hero-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-h1{font-family:'Clash Display',sans-serif;font-size:clamp(3rem,6vw,5rem);font-weight:700;line-height:.93;letter-spacing:-.04em;margin-bottom:1.5rem}
+.about-hero-right{display:flex;flex-direction:column;gap:.85rem}
+.about-kpi{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:center;transition:border-color .2s}
+.about-kpi:hover{border-color:var(--border-hi)}
+.kpi-n{font-family:'Clash Display',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.04em;white-space:nowrap}
+.kpi-l{font-size:.78rem;color:var(--muted2);line-height:1.55}
+/* story */
+.about-story{background:var(--s1);border-bottom:1px solid var(--border);padding:5rem 3rem}
+.about-story-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.story-p{color:var(--muted2);font-size:.9rem;line-height:1.85;margin-bottom:1rem}
+.story-big{font-family:'Clash Display',sans-serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:1.5rem}
+.tech-cards{display:flex;flex-direction:column;gap:.75rem}
+.tech-card{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;display:grid;grid-template-columns:2rem 1fr;gap:.85rem;align-items:center;transition:border-color .2s}
+.tech-card:hover{border-color:rgba(90,95,207,.25)}
+.tc-ico{font-size:1rem}
+.tc-title{font-family:'Clash Display',sans-serif;font-size:.875rem;font-weight:700;margin-bottom:.15rem}
+.tc-desc{font-size:.75rem;color:var(--muted2)}
+/* skills */
+.about-skills{background:var(--bg);border-bottom:1px solid var(--border);padding:5rem 3rem}
+.about-skills-in{max-width:1200px;margin:0 auto}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:3rem}
+.skill-card{background:var(--s1);padding:2.25rem 2rem;transition:background .2s}
+.skill-card:hover{background:var(--s2)}
+.skill-bar-wrap{margin-top:1.5rem}
+.skill-bar-label{display:flex;justify-content:space-between;margin-bottom:.35rem;font-size:.72rem}
+.skill-bar-label span:first-child{color:var(--muted2)}
+.skill-bar-label span:last-child{color:var(--a);font-family:'DM Mono',monospace}
+.skill-bar-bg{height:3px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+.skill-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--a2))}
+.skill-title{font-family:'Clash Display',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:1rem}
+/* values */
+.about-values{background:var(--s1);border-bottom:1px solid var(--border);padding:5rem 3rem}
+.about-values-in{max-width:1200px;margin:0 auto}
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.val-card{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:1.75rem 1.5rem;transition:border-color .25s,transform .25s}
+.val-card:hover{border-color:var(--border-hi);transform:translateY(-3px)}
+.val-line{width:32px;height:2px;background:linear-gradient(90deg,var(--a),var(--a2));border-radius:99px;margin-bottom:1.25rem}
+.val-title{font-family:'Clash Display',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem}
+.val-desc{font-size:.8rem;color:var(--muted2);line-height:1.7}
+
+
+/* ════════════════════════════════
+   APP STUDIO
+════════════════════════════════ */
+.studio-hero{padding:7rem 3rem 5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden;text-align:center}
+.studio-hero-in{max-width:680px;margin:0 auto}
+.studio-h1{font-family:'Clash Display',sans-serif;font-size:clamp(3rem,6vw,5rem);font-weight:700;line-height:.93;letter-spacing:-.04em;margin-bottom:1.5rem}
+.studio-sub{color:var(--muted2);font-size:1rem;line-height:1.8;margin-bottom:3rem}
+.studio-orb1{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(90,95,207,.1) 0%,transparent 70%);border-radius:50%;top:-100px;left:-100px;pointer-events:none}
+.studio-orb2{position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(244,124,32,.07) 0%,transparent 70%);border-radius:50%;top:-80px;right:-80px;pointer-events:none}
+/* what we do */
+.studio-what{background:var(--s1);border-bottom:1px solid var(--border);padding:5rem 3rem}
+.studio-what-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.studio-what-text .big-q{font-family:'Clash Display',sans-serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:1.5rem}
+.studio-what-text p{color:var(--muted2);font-size:.9rem;line-height:1.85;margin-bottom:.85rem}
+.what-cards{display:flex;flex-direction:column;gap:.75rem}
+.what-card{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;transition:border-color .2s}
+.what-card:hover{border-color:rgba(90,95,207,.25)}
+.wc-bar{width:3px;height:100%;min-height:2rem;background:linear-gradient(180deg,var(--a),var(--a2));border-radius:99px;flex-shrink:0;margin-top:.15rem}
+.wc-title{font-family:'Clash Display',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.2rem}
+.wc-desc{font-size:.78rem;color:var(--muted2);line-height:1.6}
+/* how */
+.studio-how{background:var(--bg);border-bottom:1px solid var(--border);padding:5rem 3rem}
+.studio-how-in{max-width:1200px;margin:0 auto}
+.how-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:3rem}
+.how-step{background:var(--s1);padding:2rem 1.5rem;position:relative;transition:background .2s}
+.how-step:hover{background:var(--s2)}
+.hs-num{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--a);letter-spacing:.08em;margin-bottom:1.5rem}
+.hs-title{font-family:'Clash Display',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.4rem;line-height:1.2}
+.hs-desc{font-size:.75rem;color:var(--muted2);line-height:1.65}
+/* tech stack */
+/* studio cta */
+.studio-cta{background:var(--bg);border-bottom:1px solid var(--border);padding:6rem 3rem;text-align:center}
+.studio-cta-h{font-family:'Clash Display',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;letter-spacing:-.03em;margin-bottom:1rem}
+
+
+/* ════════════════════════════════
+   İLETİŞİM
+════════════════════════════════ */
+.contact-hero{padding:6rem 3rem 4rem;border-bottom:1px solid var(--border)}
+.contact-hero-in{max-width:1200px;margin:0 auto}
+.contact-h1{font-family:'Clash Display',sans-serif;font-size:clamp(3rem,6vw,5rem);font-weight:700;line-height:.93;letter-spacing:-.04em;margin-bottom:1rem}
+.contact-sub{color:var(--muted2);font-size:1rem;line-height:1.8;max-width:440px}
+.contact-main{background:var(--s1);border-bottom:1px solid var(--border)}
+.contact-grid{max-width:1200px;margin:0 auto;padding:5rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+/* form */
+.cform{display:flex;flex-direction:column;gap:1.1rem}
+.crow{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.cg{display:flex;flex-direction:column;gap:.4rem}
+.clbl{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase}
+.cinp,.csel,.ctxt{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;color:var(--text);font-size:.875rem;font-family:'Cabinet Grotesk',sans-serif;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none}
+.cinp:focus,.csel:focus,.ctxt:focus{border-color:rgba(90,95,207,.4);background:rgba(90,95,207,.04)}
+.ctxt{resize:vertical;min-height:110px;line-height:1.6}
+.csel{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6378' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.csel option{background:#070b17}
+.csub{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;border:none;padding:.8rem 2rem;border-radius:11px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 24px rgba(90,95,207,.3);display:flex;align-items:center;gap:.5rem;justify-content:center;width:100%}
+.csub:hover{transform:translateY(-1px);box-shadow:0 0 36px rgba(90,95,207,.5)}
+.cnote{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);text-align:center}
+/* calendar */
+.cal-side{display:flex;flex-direction:column;gap:1.25rem}
+.cal-widget{background:var(--s2);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.cal-head{padding:1.1rem 1.35rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cal-month{font-family:'Clash Display',sans-serif;font-size:.9rem;font-weight:700}
+.cal-nav-btns{display:flex;gap:.4rem}
+.cnb{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .15s}
+.cnb:hover{background:rgba(255,255,255,.08);color:#fff}
+.cal-body{padding:.85rem 1.25rem 1.25rem}
+.cal-dh{display:grid;grid-template-columns:repeat(7,1fr);gap:.2rem;margin-bottom:.4rem}
+.cal-dh-item{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--muted);text-align:center;letter-spacing:.04em;text-transform:uppercase;padding:.3rem 0}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:.2rem}
+.cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:.78rem;cursor:pointer;transition:all .15s;position:relative}
+.cd.empty,.cd.past{cursor:default;opacity:.3}
+.cd.avail:hover{background:rgba(255,255,255,.07);color:#fff}
+.cd.dot::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:var(--a)}
+.cd.sel{background:var(--a);color:#fff;font-weight:700}
+.cd.sel::after{display:none}
+.cd.today{border:1px solid rgba(90,95,207,.3)}
+.time-wrap{padding:0 1.25rem 1.25rem;display:none}
+.time-lbl{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.6rem}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem}
+.slot{padding:.45rem;border-radius:7px;border:1px solid var(--border);font-size:.75rem;text-align:center;cursor:pointer;transition:all .15s;color:var(--muted2);font-family:'DM Mono',monospace}
+.slot:hover{border-color:rgba(90,95,207,.3);color:#fff;background:rgba(90,95,207,.06)}
+.slot.sel{border-color:var(--a);background:rgba(90,95,207,.12);color:#a5b4fc}
+.book-btn{width:100%;margin-top:.85rem;background:var(--a);color:#fff;border:none;padding:.7rem;border-radius:9px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:.83rem;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:.35rem}
+.book-btn:hover{opacity:.9}
+/* contact info */
+.cinfo{background:var(--bg);border-bottom:1px solid var(--border);padding:4rem 3rem}
+.cinfo-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.ci{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:border-color .2s}
+.ci:hover{border-color:var(--border-hi)}
+.ci-lbl{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.ci-val{font-size:.9rem;font-weight:600;margin-bottom:.15rem}
+.ci-sub{font-size:.75rem;color:var(--muted2)}
+</style>
+<script>
+function goPage(id, e) {
+  document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.ptab').forEach(function(b){ b.classList.remove('on'); });
+  var pg = document.getElementById('pg-' + id);
+  if (pg) pg.classList.add('on');
+  var btn = (e && e.currentTarget) ? e.currentTarget : (e && e.target) ? e.target : null;
+  if (btn && btn.classList) btn.classList.add('on');
+  window.scrollTo(0,0);
+}
+</script>
+</head>
+<body>
+
+<!-- SWITCHER -->
+<div class="pnav">
+  <a href="aspiyas-v5.html" class="pnav-logo">asp<em>·</em>iyas <span style="color:var(--muted);font-size:.65rem;font-family:'DM Mono',monospace;margin-left:.4rem">← Ana Sayfa</span></a>
+  <div class="ptabs">
+    <button class="ptab on" onclick="goPage('hizmetler',event)">Hizmetler</button>
+    <button class="ptab" onclick="goPage('hakkimizda',event)">Hakkımızda</button>
+    <button class="ptab" onclick="goPage('appstudio',event)">App Studio</button>
+    <button class="ptab" onclick="goPage('iletisim',event)">İletişim</button>
+  </div>
+  <span class="phint">önizleme</span>
+</div>
+
+<!-- ═══════════════ HİZMETLER ═══════════════ -->
+<div class="pg on" id="pg-hizmetler">
+  <nav class="snav">
+    <a href="#" class="logo">asp<em>·</em>iyas</a>
+    <ul class="snav-links"><li><a href="#" class="cur">Hizmetler</a></li><li><a href="#">Hakkımızda</a></li><li><a href="#">App Studio</a></li><li><a href="#">İletişim</a></li></ul>
+    <button class="ncta">Teklif Al</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="svc-hero">
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 20% 50%,black,transparent 80%)"></div>
+    <div class="svc-hero-in">
+      <div>
+        <div class="lbl">Hizmetler</div>
+        <h1 class="svc-h1" contenteditable="true">Entegre<br><span class="outline">Dijital Büyüme</span></h1>
+        <p class="muted" style="font-size:.95rem;line-height:1.8;max-width:430px;margin-bottom:2.5rem" contenteditable="true">Veri bilimi odaklı pazarlamadan AI araç geliştirmeye — kendi ürünlerimizi yönettiğimiz için growth'u içeriden biliyoruz.</p>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+          <button class="btn-w" contenteditable="true">Ücretsiz Denetim →</button>
+          <button class="btn-g" contenteditable="true">Teklif Al</button>
+        </div>
+        <div class="svc-hero-stats">
+          <div class="svc-stat"><div class="svc-stat-n" contenteditable="true">8+</div><div class="svc-stat-l" contenteditable="true">Yıl Deneyim</div></div>
+          <div class="svc-stat"><div class="svc-stat-n" contenteditable="true">200+</div><div class="svc-stat-l" contenteditable="true">Müşteri Marka</div></div>
+          <div class="svc-stat"><div class="svc-stat-n" contenteditable="true">₺50M+</div><div class="svc-stat-l" contenteditable="true">Yönetilen Bütçe</div></div>
+        </div>
+      </div>
+      <div class="svc-visual" style="display:flex;flex-direction:column;gap:.85rem">
+        <div class="svc-orb"></div>
+        <div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;position:relative;z-index:1">
+          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted);margin-bottom:.85rem;letter-spacing:.06em">ROAS — Son 30 Gün</div>
+          <div style="display:flex;align-items:flex-end;gap:6px;height:60px">
+            <div style="flex:1;background:rgba(90,95,207,.15);border-radius:4px 4px 0 0;height:40%"></div>
+            <div style="flex:1;background:rgba(90,95,207,.2);border-radius:4px 4px 0 0;height:60%"></div>
+            <div style="flex:1;background:rgba(90,95,207,.25);border-radius:4px 4px 0 0;height:50%"></div>
+            <div style="flex:1;background:rgba(90,95,207,.3);border-radius:4px 4px 0 0;height:75%"></div>
+            <div style="flex:1;background:rgba(90,95,207,.4);border-radius:4px 4px 0 0;height:65%"></div>
+            <div style="flex:1;background:rgba(90,95,207,.5);border-radius:4px 4px 0 0;height:85%"></div>
+            <div style="flex:1;background:var(--a);border-radius:4px 4px 0 0;height:100%"></div>
+          </div>
+          <div style="font-family:'Clash Display',sans-serif;font-size:1.75rem;font-weight:700;margin-top:.75rem">×4.8 <span style="font-size:.85rem;color:var(--muted2);font-family:'Cabinet Grotesk',sans-serif;font-weight:400">ort. ROAS</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;position:relative;z-index:1">
+          <div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:1.25rem">
+            <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);margin-bottom:.5rem">UGC İçerik</div>
+            <div style="font-family:'Clash Display',sans-serif;font-size:1.5rem;font-weight:700">%70</div>
+            <div style="font-size:.72rem;color:var(--muted2)">Daha Düşük Maliyet</div>
+          </div>
+          <div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:1.25rem">
+            <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);margin-bottom:.5rem">Teslimat</div>
+            <div style="font-family:'Clash Display',sans-serif;font-size:1.5rem;font-weight:700">3-7</div>
+            <div style="font-size:.72rem;color:var(--muted2)">İş Günü</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service cards -->
+  <section class="svc-grid-sec">
+    <div class="svc-grid-in">
+      <div class="lbl">Tüm Hizmetler</div>
+      <h2 class="sh" contenteditable="true">Ne Yapıyoruz</h2>
+      <div class="svc-cards">
+
+        <div class="svc-card">
+          <div class="svc-card-num">01 ↗</div>
+          <div class="svc-card-title" contenteditable="true">Performans Pazarlama</div>
+          <div class="svc-card-desc" contenteditable="true">Reklam bütçenizi boşa harcatmıyoruz. Google, Meta ve TikTok kampanyalarınızı veriyle yönetiyor, her lira için hesap veriyoruz.</div>
+          <div class="svc-card-tags"><span class="tag">Google Ads</span><span class="tag">Meta</span><span class="tag">ROAS</span></div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-num">02 ↗</div>
+          <div class="svc-card-title" contenteditable="true">UGC İçerik</div>
+          <div class="svc-card-desc" contenteditable="true">Kendi platformumuz Shoovo ile gerçek içerik üreticilerinden markanıza özel videolar. Ajans prodüksiyonuna kıyasla %70 daha ucuz, 3-7 günde teslim.</div>
+          <div class="svc-card-tags"><span class="tag">Shoovo</span><span class="tag">Creator</span><span class="tag">Video</span></div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-num">03 ↗</div>
+          <div class="svc-card-title" contenteditable="true">Sosyal Medya</div>
+          <div class="svc-card-desc" contenteditable="true">Strateji, içerik ve topluluk yönetimi birlikte. Her platformun kendine has dilini konuşuyoruz; performans hedeflerini de gözden kaçırmıyoruz.</div>
+          <div class="svc-card-tags"><span class="tag">İçerik</span><span class="tag">Strateji</span><span class="tag">Community</span></div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-num">04 ↗</div>
+          <div class="svc-card-title" contenteditable="true">Web Tasarım & Geliştirme</div>
+          <div class="svc-card-desc" contenteditable="true">Şık görünmek yeterli değil — hızlı açılmalı, sıralamada yükselmeli ve ziyaretçiyi müşteriye dönüştürmeli. Hepsini birden yapıyoruz.</div>
+          <div class="svc-card-tags"><span class="tag">Next.js</span><span class="tag">SEO</span><span class="tag">CRO</span></div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-num">05 ↗</div>
+          <div class="svc-card-title" contenteditable="true">Yazılım Danışmanlığı</div>
+          <div class="svc-card-desc" contenteditable="true">Hangi teknolojiyi seçmeli, ekibi nasıl kurmalı, yol haritası nasıl önceliklendirilmeli? Bunlar için dışarıdan bir teknik ortak arıyorsanız buradayız.</div>
+          <div class="svc-card-tags"><span class="tag">Roadmap</span><span class="tag">Architecture</span></div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-num">06 ↗</div>
+          <div class="svc-card-title" contenteditable="true">Mobile App Growth</div>
+          <div class="svc-card-desc" contenteditable="true">Uygulamanız App Store'da kaybolup gitmesin. ASO'dan kullanıcı edinimi kampanyalarına, retention stratejilerine kadar büyümeyi bütünsel görüyoruz.</div>
+          <div class="svc-card-tags"><span class="tag">ASO</span><span class="tag">UA</span><span class="tag">Retention</span></div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-num">07 ↗</div>
+          <div class="svc-card-title" contenteditable="true">Dijital Denetim</div>
+          <div class="svc-card-desc" contenteditable="true">Reklam hesaplarınızda, SEO'nuzda ve analytics kurulumunuzda neler kaybediyorsunuz? Ücretsiz denetimle masaya yatırıyoruz.</div>
+          <div class="svc-card-tags"><span class="tag">Ücretsiz</span><span class="tag">Ads</span><span class="tag">SEO</span></div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-num">08 ↗</div>
+          <div class="svc-card-title" contenteditable="true">AI Araç Geliştirme</div>
+          <div class="svc-card-desc" contenteditable="true">Rakipleriniz yapay zekayı kullanmaya başlamadan önce siz kullanın. İş akışlarınıza özel, çalışan ve ölçeklenen AI araçlar geliştiriyoruz.</div>
+          <div class="svc-card-tags"><span class="tag">LLM</span><span class="tag">Automation</span><span class="tag">API</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="svc-process">
+    <div class="svc-process-in">
+      <div class="lbl">Süreç</div>
+      <h2 class="sh" contenteditable="true">Nasıl Çalışıyoruz</h2>
+      <div class="process-bar">
+        <div class="pb-step">
+          <div class="pb-dot">01</div>
+          <div class="pb-title" contenteditable="true">Keşif & Denetim</div>
+          <div class="pb-desc" contenteditable="true">Mevcut durumu analiz ediyoruz. Ücretsiz.</div>
+        </div>
+        <div class="pb-step">
+          <div class="pb-dot">02</div>
+          <div class="pb-title" contenteditable="true">Strateji</div>
+          <div class="pb-desc" contenteditable="true">Büyüme yol haritası ve KPI'lar belirliyoruz.</div>
+        </div>
+        <div class="pb-step">
+          <div class="pb-dot">03</div>
+          <div class="pb-title" contenteditable="true">Uygulama</div>
+          <div class="pb-desc" contenteditable="true">Kampanyaları kuruyoruz, sistemleri devreye alıyoruz.</div>
+        </div>
+        <div class="pb-step">
+          <div class="pb-dot">04</div>
+          <div class="pb-title" contenteditable="true">Optimizasyon</div>
+          <div class="pb-desc" contenteditable="true">Sürekli A/B testi ve haftalık raporlama.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="svc-cta-strip">
+    <div style="max-width:460px;margin:0 auto">
+      <h3 class="sh" style="font-size:clamp(1.75rem,3vw,2.4rem);margin-bottom:.85rem" contenteditable="true">Ücretsiz Denetimle Başlayın</h3>
+      <p class="muted" style="font-size:.875rem;margin-bottom:2rem" contenteditable="true">Hangi hizmetin size uygun olduğundan emin değil misiniz?</p>
+      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn-w" contenteditable="true">Denetim Talep Et →</button>
+        <button class="btn-g" contenteditable="true">Demo İzle</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ft"><div class="ft-in"><div><div class="fb">asp<em>·</em>iyas</div><p class="ft-tag">We build products.<br>We grow brands.</p><div class="ft-soc"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">𝕏</a><a href="#" class="fsoc">ig</a></div></div><div class="fc"><h5>Ürünler</h5><ul><li><a href="#">Shoovo</a></li><li><a href="#">Dreemart</a></li><li><a href="#">Benche</a></li><li><a href="#">SSS</a></li></ul></div><div class="fc"><h5>Hizmetler</h5><ul><li><a href="#">Performans Pazarlama</a></li><li><a href="#">UGC</a></li><li><a href="#">Sosyal Medya</a></li><li><a href="#">AI Araçlar</a></li></ul></div><div class="fc"><h5>Şirket</h5><ul><li><a href="#">Hakkımızda</a></li><li><a href="#">App Studio</a></li><li><a href="#">İletişim</a></li><li><a href="#">KVKK</a></li></ul></div></div><div class="ft-bot"><span class="ft-copy">© 2025 Aspiyas Teknoloji ve Ticaret A.Ş.</span><span class="ft-copy"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2aaa7aeaead82a3b1b2abbba3b1eca1adaf">[email&#160;protected]</a></span></div></footer>
+</div>
+
+
+<!-- ═══════════════ HAKKIMIZDA ═══════════════ -->
+<div class="pg" id="pg-hakkimizda">
+  <nav class="snav">
+    <a href="#" class="logo">asp<em>·</em>iyas</a>
+    <ul class="snav-links"><li><a href="#">Hizmetler</a></li><li><a href="#" class="cur">Hakkımızda</a></li><li><a href="#">App Studio</a></li><li><a href="#">İletişim</a></li></ul>
+    <button class="ncta">Teklif Al</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 60% 60% at 80% 50%,black,transparent 80%)"></div>
+    <div class="about-hero-in">
+      <div>
+        <div class="lbl">Hakkımızda</div>
+        <h1 class="about-h1" contenteditable="true">Ürünler<br>İnşa Ediyoruz.<br><span class="outline">Markalar<br>Büyütüyoruz.</span></h1>
+        <p class="muted" style="font-size:.95rem;line-height:1.8;max-width:400px;margin-top:1.5rem" contenteditable="true">Aspiyas; kendi SaaS ürünlerini geliştiren ve markalara veri odaklı dijital büyüme hizmetleri sunan Antalya merkezli bir teknoloji şirketidir.</p>
+      </div>
+      <div class="about-hero-right">
+        <div class="about-kpi">
+          <div class="kpi-n" contenteditable="true">8+</div>
+          <div class="kpi-l" contenteditable="true">Yıl sektör deneyimi. Morhipo, Boyner, Vakko, LC Waikiki gibi markalarda yöneticilik.</div>
+        </div>
+        <div class="about-kpi">
+          <div class="kpi-n" contenteditable="true">₺50M+</div>
+          <div class="kpi-l" contenteditable="true">Kariyer boyunca yönetilen toplam reklam bütçesi.</div>
+        </div>
+        <div class="about-kpi">
+          <div class="kpi-n" contenteditable="true">3</div>
+          <div class="kpi-l" contenteditable="true">Aktif SaaS ürün. Shoovo, Dreemart ve Benche — aynı zamanda kendi growth laboratuvarımız.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story / Tech House -->
+  <section class="about-story">
+    <div class="about-story-in">
+      <div>
+        <div class="lbl">Tech House Kavramı</div>
+        <div class="story-big" contenteditable="true">Neden Sadece Ajans Olmak Yetersizdi?</div>
+        <p class="story-p" contenteditable="true">Yıllar içinde şunu fark ettik: en etkili growth stratejileri, ürünü bizzat büyüten ekiplerden çıkıyor. Bir reklam ajansı reklamı yönetir; biz reklamı, ürünü ve teknolojiyi birlikte yönetiyoruz.</p>
+        <p class="story-p" contenteditable="true">Bu yüzden "Tech House" olmayı seçtik — kendi SaaS ürünlerimizi geliştiriyor, bu deneyimi müşterilerimize doğrudan yansıtıyoruz.</p>
+        <div style="margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap">
+          <button class="btn-w" contenteditable="true">İletişime Geç →</button>
+          <button class="btn-g" contenteditable="true">Shoovo'yu Gör</button>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Teknoloji Altyapımız</div>
+        <div class="tech-cards">
+          <div class="tech-card"><div class="tc-ico">📊</div><div><div class="tc-title" contenteditable="true">Veri & Analytics</div><div class="tc-desc" contenteditable="true">GA4, Amplitude, Looker Studio, BigQuery — karar almanın merkezinde veri var.</div></div></div>
+          <div class="tech-card"><div class="tc-ico">🤖</div><div><div class="tc-title" contenteditable="true">AI Entegrasyonu</div><div class="tc-desc" contenteditable="true">Gemini, GPT-4, Claude — kendi ürünlerimize ve müşteri projelerine entegre.</div></div></div>
+          <div class="tech-card"><div class="tc-ico">⚡</div><div><div class="tc-title" contenteditable="true">Modern Geliştirme</div><div class="tc-desc" contenteditable="true">Next.js, React Native, Supabase, Vercel — hız ve ölçeklenebilirlik önceliğimiz.</div></div></div>
+          <div class="tech-card"><div class="tc-ico">🎬</div><div><div class="tc-title" contenteditable="true">Shoovo Ekosistemi</div><div class="tc-desc" contenteditable="true">Türkiye'nin ilk UGC platformu. Kendi ürünümüz, kendi growth motoru.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Yetkinlikler -->
+  <section class="about-skills">
+    <div class="about-skills-in">
+      <div class="lbl">Yetkinliklerimiz</div>
+      <h2 class="sh" contenteditable="true">Ne Konusunda İyiyiz</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-title" contenteditable="true">Performans Pazarlama</div>
+          <div style="font-size:.8rem;color:var(--muted2);margin-bottom:1.25rem" contenteditable="true">Google Ads, Meta, TikTok kampanya yönetimi ve optimizasyonu.</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Google Ads</span><span>95%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill-bar-wrap" style="margin-top:.75rem">
+            <div class="skill-bar-label"><span>Meta Ads</span><span>92%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="skill-bar-wrap" style="margin-top:.75rem">
+            <div class="skill-bar-label"><span>TikTok Ads</span><span>80%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title" contenteditable="true">Veri & Analytics</div>
+          <div style="font-size:.8rem;color:var(--muted2);margin-bottom:1.25rem" contenteditable="true">GA4, GTM, Looker Studio ve custom dashboard'larla veri altyapısı kuruyoruz.</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>GA4 & GTM</span><span>95%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill-bar-wrap" style="margin-top:.75rem">
+            <div class="skill-bar-label"><span>Looker Studio</span><span>90%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-bar-wrap" style="margin-top:.75rem">
+            <div class="skill-bar-label"><span>Data Engineering</span><span>70%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title" contenteditable="true">Ürün & Geliştirme</div>
+          <div style="font-size:.8rem;color:var(--muted2);margin-bottom:1.25rem" contenteditable="true">SaaS ürün geliştirme, mobile app growth ve yazılım danışmanlığı.</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>SaaS Geliştirme</span><span>88%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill-bar-wrap" style="margin-top:.75rem">
+            <div class="skill-bar-label"><span>Mobile Growth</span><span>85%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill-bar-wrap" style="margin-top:.75rem">
+            <div class="skill-bar-label"><span>AI Entegrasyonu</span><span>82%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:82%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Değerler -->
+  <section class="about-values">
+    <div class="about-values-in">
+      <div class="lbl">Değerlerimiz</div>
+      <h2 class="sh" contenteditable="true">Ne'ye İnanıyoruz</h2>
+      <div class="values-grid">
+        <div class="val-card"><div class="val-line"></div><div class="val-title" contenteditable="true">Veri Önce Gelir</div><div class="val-desc" contenteditable="true">Her karar veriye dayanır. Sezgi değil, ölçüm.</div></div>
+        <div class="val-card"><div class="val-line"></div><div class="val-title" contenteditable="true">İçeriden Öğrenmek</div><div class="val-desc" contenteditable="true">Kendi ürünlerimizi yönetiyoruz. Growth'u bizzat yaşıyoruz.</div></div>
+        <div class="val-card"><div class="val-line"></div><div class="val-title" contenteditable="true">Hız & Kalite</div><div class="val-desc" contenteditable="true">Hızlı iterasyon, yüksek standart. İkisini birlikte tutuyoruz.</div></div>
+        <div class="val-card"><div class="val-line"></div><div class="val-title" contenteditable="true">Şeffaf Ortaklık</div><div class="val-desc" contenteditable="true">Müşterilerimizle gerçek ortak gibi çalışıyoruz. Sürpriz yok.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ft"><div class="ft-in"><div><div class="fb">asp<em>·</em>iyas</div><p class="ft-tag">We build products.<br>We grow brands.</p><div class="ft-soc"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">𝕏</a><a href="#" class="fsoc">ig</a></div></div><div class="fc"><h5>Ürünler</h5><ul><li><a href="#">Shoovo</a></li><li><a href="#">Dreemart</a></li><li><a href="#">Benche</a></li><li><a href="#">SSS</a></li></ul></div><div class="fc"><h5>Hizmetler</h5><ul><li><a href="#">Performans Pazarlama</a></li><li><a href="#">UGC</a></li><li><a href="#">Sosyal Medya</a></li><li><a href="#">AI Araçlar</a></li></ul></div><div class="fc"><h5>Şirket</h5><ul><li><a href="#">Hakkımızda</a></li><li><a href="#">App Studio</a></li><li><a href="#">İletişim</a></li><li><a href="#">KVKK</a></li></ul></div></div><div class="ft-bot"><span class="ft-copy">© 2025 Aspiyas Teknoloji ve Ticaret A.Ş.</span><span class="ft-copy"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="355d5059595a755446455c4c54461b565a58">[email&#160;protected]</a></span></div></footer>
+</div>
+
+
+<!-- ═══════════════ APP STUDIO ═══════════════ -->
+<div class="pg" id="pg-appstudio">
+  <nav class="snav">
+    <a href="#" class="logo">asp<em>·</em>iyas</a>
+    <ul class="snav-links"><li><a href="#">Hizmetler</a></li><li><a href="#">Hakkımızda</a></li><li><a href="#" class="cur">App Studio</a></li><li><a href="#">İletişim</a></li></ul>
+    <button class="ncta">Teklif Al</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="studio-hero">
+    <div class="studio-orb1"></div>
+    <div class="studio-orb2"></div>
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 50% 50%,rgba(90,95,207,.04) 1px,transparent 1px);background-size:32px 32px"></div>
+    <div class="studio-hero-in" style="position:relative">
+      <div class="lbl" style="justify-content:center">ASP App Studio</div>
+      <h1 class="studio-h1" contenteditable="true">Fikri Ürüne<br><span class="outline">Dönüştürüyoruz.</span></h1>
+      <p class="studio-sub" contenteditable="true">Markanıza özel dijital ürünler, AI araçlar ve mobil uygulamalar geliştiriyoruz. Fikir aşamasından canlıya kadar uçtan uca.</p>
+      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn-w" contenteditable="true">Projeyi Konuşalım →</button>
+        <button class="btn-g" contenteditable="true">Portföy Gör</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="studio-what">
+    <div class="studio-what-in">
+      <div class="studio-what-text">
+        <div class="lbl">Ne Yapıyoruz</div>
+        <div class="big-q" contenteditable="true">Sadece Kod Yazmıyoruz.</div>
+        <p contenteditable="true">Her dijital ürün bir iş sorununu çözüyor olmalı. Bu yüzden geliştirmeye başlamadan önce problemi, kullanıcıyı ve büyüme modelini birlikte tanımlıyoruz.</p>
+        <p style="margin-top:.75rem" contenteditable="true">Shoovo, Dreemart ve Benche — kendi ürünlerimizi inşa ederek kazandığımız deneyimi müşteri projelerine taşıyoruz.</p>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem">
+          <button class="btn-w" contenteditable="true">İletişime Geç →</button>
+        </div>
+      </div>
+      <div>
+        <div class="what-cards">
+          <div class="what-card"><div class="wc-bar"></div><div><div class="wc-title" contenteditable="true">SaaS Ürün Geliştirme</div><div class="wc-desc" contenteditable="true">Fikir → MVP → lansman. Next.js, Supabase, Stripe/LemonSqueezy entegrasyonlu tam ürün.</div></div></div>
+          <div class="what-card"><div class="wc-bar"></div><div><div class="wc-title" contenteditable="true">Mobil Uygulama</div><div class="wc-desc" contenteditable="true">React Native ile iOS & Android. RevenueCat abonelik, App Store yayın süreçleri.</div></div></div>
+          <div class="what-card"><div class="wc-bar"></div><div><div class="wc-title" contenteditable="true">Markalara Özel AI Araçlar</div><div class="wc-desc" contenteditable="true">LLM entegrasyonu, otomasyon workflow'ları, dahili AI asistanlar. Rakiplerinizden önce.</div></div></div>
+          <div class="what-card"><div class="wc-bar"></div><div><div class="wc-title" contenteditable="true">Web Uygulama & Dashboard</div><div class="wc-desc" contenteditable="true">Admin paneller, analitik dashboard'lar, müşteri portalleri. Tam yetki, tam mülkiyet.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How -->
+  <section class="studio-how">
+    <div class="studio-how-in">
+      <div class="lbl">Sürecimiz</div>
+      <h2 class="sh" contenteditable="true">Fikir → Canlı</h2>
+      <div class="how-steps">
+        <div class="how-step"><div class="hs-num">01</div><div class="hs-title" contenteditable="true">Problem Tanımı</div><div class="hs-desc" contenteditable="true">Çözdüğümüz problemi, hedef kullanıcıyı ve başarı kriterlerini netleştiriyoruz.</div></div>
+        <div class="how-step"><div class="hs-num">02</div><div class="hs-title" contenteditable="true">Mimari & Tasarım</div><div class="hs-desc" contenteditable="true">Tech stack, veri modeli ve UI/UX tasarımı. Geliştirmeden önce tam plan.</div></div>
+        <div class="how-step"><div class="hs-num">03</div><div class="hs-title" contenteditable="true">MVP Geliştirme</div><div class="hs-desc" contenteditable="true">Hızlı iterasyon. İlk çalışan versiyon 4-8 haftada hazır.</div></div>
+        <div class="how-step"><div class="hs-num">04</div><div class="hs-title" contenteditable="true">Lansman</div><div class="hs-desc" contenteditable="true">App Store yayını, domain kurulumu, test & QA.</div></div>
+        <div class="how-step"><div class="hs-num">05</div><div class="hs-title" contenteditable="true">Growth</div><div class="hs-desc" contenteditable="true">Kullanıcı edinimi, retention ve sürekli geliştirme. Ürün bitmiyor, büyüyor.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <div class="studio-cta">
+    <div style="max-width:480px;margin:0 auto">
+      <div class="lbl" style="justify-content:center;margin-bottom:1.5rem">Proje Başlat</div>
+      <h2 class="studio-cta-h" contenteditable="true">Bir Fikrin mi Var?</h2>
+      <p class="muted" style="font-size:.9rem;margin-bottom:2.5rem" contenteditable="true">Konsepten canlıya — ürününüzü birlikte inşa edelim.</p>
+      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn-w" contenteditable="true">Projeyi Anlat →</button>
+        <button class="btn-g" contenteditable="true">Fiyat Sor</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ft"><div class="ft-in"><div><div class="fb">asp<em>·</em>iyas</div><p class="ft-tag">We build products.<br>We grow brands.</p><div class="ft-soc"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">𝕏</a><a href="#" class="fsoc">ig</a></div></div><div class="fc"><h5>Ürünler</h5><ul><li><a href="#">Shoovo</a></li><li><a href="#">Dreemart</a></li><li><a href="#">Benche</a></li><li><a href="#">SSS</a></li></ul></div><div class="fc"><h5>Hizmetler</h5><ul><li><a href="#">Performans Pazarlama</a></li><li><a href="#">UGC</a></li><li><a href="#">Sosyal Medya</a></li><li><a href="#">AI Araçlar</a></li></ul></div><div class="fc"><h5>Şirket</h5><ul><li><a href="#">Hakkımızda</a></li><li><a href="#">App Studio</a></li><li><a href="#">İletişim</a></li><li><a href="#">KVKK</a></li></ul></div></div><div class="ft-bot"><span class="ft-copy">© 2025 Aspiyas Teknoloji ve Ticaret A.Ş.</span><span class="ft-copy"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b232e2727240b2a383b22322a3865282426">[email&#160;protected]</a></span></div></footer>
+</div>
+
+
+<!-- ═══════════════ İLETİŞİM ═══════════════ -->
+<div class="pg" id="pg-iletisim">
+  <nav class="snav">
+    <a href="#" class="logo">asp<em>·</em>iyas</a>
+    <ul class="snav-links"><li><a href="#">Hizmetler</a></li><li><a href="#">Hakkımızda</a></li><li><a href="#">App Studio</a></li><li><a href="#" class="cur">İletişim</a></li></ul>
+    <button class="ncta">Teklif Al</button>
+  </nav>
+
+  <div class="contact-hero">
+    <div class="contact-hero-in">
+      <div class="lbl">İletişim</div>
+      <h1 class="contact-h1" contenteditable="true">Konuşalım.<br><span class="outline">Büyüyelim.</span></h1>
+      <p class="contact-sub muted" contenteditable="true">Formdan mesaj bırakın veya doğrudan bir görüşme takvimi ayarlayın. Genellikle 1 iş günü içinde yanıt veriyoruz.</p>
+    </div>
+  </div>
+
+  <div class="contact-main">
+    <div class="contact-grid">
+      <!-- FORM -->
+      <div>
+        <div class="lbl" style="margin-bottom:1.5rem">Mesaj Gönder</div>
+        <div class="cform">
+          <div class="crow">
+            <div class="cg"><label class="clbl">Ad Soyad</label><input type="text" class="cinp" placeholder="Adınız"></div>
+            <div class="cg"><label class="clbl">Şirket</label><input type="text" class="cinp" placeholder="Şirket adı"></div>
+          </div>
+          <div class="crow">
+            <div class="cg"><label class="clbl">E-posta</label><input type="email" class="cinp" placeholder="ornek@sirket.com"></div>
+            <div class="cg"><label class="clbl">Telefon</label><input type="tel" class="cinp" placeholder="+90 5xx xxx xx xx"></div>
+          </div>
+          <div class="crow">
+            <div class="cg">
+              <label class="clbl">Sektör</label>
+              <select class="csel">
+                <option value="">Sektörünüz...</option>
+                <option>E-ticaret & Perakende</option>
+                <option>Turizm & Otelcilik</option>
+                <option>Fintech & Finans</option>
+                <option>Sağlık & Wellness</option>
+                <option>Gıda & İçecek</option>
+                <option>Moda & Güzellik</option>
+                <option>Teknoloji & SaaS</option>
+                <option>Eğitim & EdTech</option>
+                <option>Gayrimenkul</option>
+                <option>Otomotiv</option>
+                <option>Diğer</option>
+              </select>
+            </div>
+            <div class="cg">
+              <label class="clbl">Ortalama Reklam Bütçesi</label>
+              <select class="csel">
+                <option value="">Aylık bütçeniz...</option>
+                <option>₺0 — Henüz reklam vermiyorum</option>
+                <option>₺10.000 — ₺50.000 / ay</option>
+                <option>₺50.000 — ₺150.000 / ay</option>
+                <option>₺150.000 — ₺500.000 / ay</option>
+                <option>₺500.000 — ₺1.000.000 / ay</option>
+                <option>₺1.000.000+ / ay</option>
+              </select>
+            </div>
+          </div>
+          <div class="cg">
+            <label class="clbl">İlgilendiğiniz Hizmet</label>
+            <select class="csel">
+              <option value="">Seçiniz...</option>
+              <option>Performans Pazarlama</option>
+              <option>UGC Hizmeti (Shoovo)</option>
+              <option>Sosyal Medya Yönetimi</option>
+              <option>Web Sitesi Tasarım & Geliştirme</option>
+              <option>Yazılım Danışmanlığı</option>
+              <option>Mobile App Growth</option>
+              <option>Dijital Denetim (Ücretsiz)</option>
+              <option>AI Araç Geliştirme</option>
+              <option>Birden Fazla Hizmet</option>
+            </select>
+          </div>
+          <div class="cg"><label class="clbl">Mesajınız</label><textarea class="ctxt" placeholder="Projeniz veya hedefiniz hakkında kısaca bilgi verin..."></textarea></div>
+          <button class="csub" onclick="handleSubmit(this)"><span>Mesaj Gönder</span><span>→</span></button>
+          <p class="cnote">Form gönderildiğinde <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b535e5757547b5a484b52425a4815585456">[email&#160;protected]</a> adresine iletilir.</p>
+        </div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="cal-side">
+        <div class="lbl" style="margin-bottom:.25rem">Görüşme Takvimi</div>
+        <div style="font-family:'Clash Display',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:.4rem" contenteditable="true">Doğrudan Randevu Al</div>
+        <p class="muted" style="font-size:.8rem;line-height:1.7;margin-bottom:1rem" contenteditable="true">30 dakikalık ücretsiz keşif görüşmesi. Google Meet üzerinden.</p>
+        <div class="cal-widget">
+          <div class="cal-head">
+            <div class="cal-month" id="cal-m">Mart 2026</div>
+            <div class="cal-nav-btns">
+              <button class="cnb" onclick="chMonth(-1)">‹</button>
+              <button class="cnb" onclick="chMonth(1)">›</button>
+            </div>
+          </div>
+          <div class="cal-body">
+            <div class="cal-dh">
+              <div class="cal-dh-item">Pzt</div><div class="cal-dh-item">Sal</div><div class="cal-dh-item">Çar</div>
+              <div class="cal-dh-item">Per</div><div class="cal-dh-item">Cum</div><div class="cal-dh-item">Cmt</div><div class="cal-dh-item">Paz</div>
+            </div>
+            <div class="cal-days" id="cal-days"></div>
+          </div>
+          <div class="time-wrap" id="twrap">
+            <div class="time-lbl" id="tlbl"></div>
+            <div class="slots" id="slots"></div>
+            <button class="book-btn" id="bbtn" style="display:none" onclick="doBook()">📅 Görüşmeyi Onayla</button>
+          </div>
+        </div>
+        <div style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem">
+          <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);margin-bottom:.5rem;letter-spacing:.06em;text-transform:uppercase">Alternatif</div>
+          <div style="font-size:.82rem;color:var(--muted2)">Doğrudan yazmak isterseniz: <span style="color:#fff;font-weight:600" contenteditable="true"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97fff2fbfbf8d7f6e4e7feeef6e4b9f4f8fa">[email&#160;protected]</a></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cinfo">
+    <div class="cinfo-in">
+      <div class="ci"><div class="ci-lbl">Adres</div><div class="ci-val" contenteditable="true">Antalya, Türkiye</div><div class="ci-sub" contenteditable="true">Teknokent & Remote</div></div>
+      <div class="ci"><div class="ci-lbl">E-posta</div><div class="ci-val" contenteditable="true"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a727f7676755a7b696a73637b6934797577">[email&#160;protected]</a></div><div class="ci-sub" contenteditable="true">1 iş günü içinde yanıt</div></div>
+      <div class="ci"><div class="ci-lbl">Sosyal</div><div class="ci-val" contenteditable="true">LinkedIn · X · Instagram</div><div class="ci-sub" contenteditable="true">@aspiyas</div></div>
+    </div>
+  </div>
+
+  <footer class="ft"><div class="ft-in"><div><div class="fb">asp<em>·</em>iyas</div><p class="ft-tag">We build products.<br>We grow brands.</p><div class="ft-soc"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">𝕏</a><a href="#" class="fsoc">ig</a></div></div><div class="fc"><h5>Ürünler</h5><ul><li><a href="#">Shoovo</a></li><li><a href="#">Dreemart</a></li><li><a href="#">Benche</a></li><li><a href="#">SSS</a></li></ul></div><div class="fc"><h5>Hizmetler</h5><ul><li><a href="#">Performans Pazarlama</a></li><li><a href="#">UGC</a></li><li><a href="#">Sosyal Medya</a></li><li><a href="#">AI Araçlar</a></li></ul></div><div class="fc"><h5>Şirket</h5><ul><li><a href="#">Hakkımızda</a></li><li><a href="#">App Studio</a></li><li><a href="#">İletişim</a></li><li><a href="#">KVKK</a></li></ul></div></div><div class="ft-bot"><span class="ft-copy">© 2025 Aspiyas Teknoloji ve Ticaret A.Ş.</span><span class="ft-copy"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a323f3636351a3b292a33233b2974393537">[email&#160;protected]</a></span></div></footer>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// PAGE SWITCH
+function goPage(id, e) {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('on'));
+  var pg = document.getElementById('pg-' + id);
+  if (pg) pg.classList.add('on');
+  var btn = e.currentTarget || e.target || e;
+  if (btn && btn.classList) btn.classList.add('on');
+  window.scrollTo(0,0);
+}
+
+// FORM
+function handleSubmit(btn) {
+  btn.innerHTML = '<span>✓ Gönderildi!</span>';
+  btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+  btn.style.boxShadow = '0 0 24px rgba(34,197,94,.25)';
+  setTimeout(() => {
+    btn.innerHTML = '<span>Mesaj Gönder</span><span>→</span>';
+    btn.style.background = '';
+    btn.style.boxShadow = '';
+  }, 3000);
+}
+
+// CALENDAR
+let curDate = new Date(2026,2,1);
+let selDay = null, selSlot = null;
+const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+const SLOTS = ['09:00','10:00','11:00','14:00','15:00','16:00'];
+
+function renderCal() {
+  const y = curDate.getFullYear(), m = curDate.getMonth();
+  document.getElementById('cal-m').textContent = MONTHS[m] + ' ' + y;
+  const firstDay = new Date(y,m,1).getDay();
+  const days = new Date(y,m+1,0).getDate();
+  const today = new Date();
+  const offset = firstDay === 0 ? 6 : firstDay - 1;
+  const grid = document.getElementById('cal-days');
+  grid.innerHTML = '';
+  for(let i=0;i<offset;i++){const d=document.createElement('div');d.className='cd empty';grid.appendChild(d);}
+  for(let d=1;d<=days;d++){
+    const el = document.createElement('div');
+    const dt = new Date(y,m,d);
+    const isWE = dt.getDay()===0||dt.getDay()===6;
+    const isPast = dt < new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const isToday = dt.toDateString()===today.toDateString();
+    const isSel = selDay===d && m===curDate.getMonth();
+    el.className = 'cd' + (isPast||isWE?' past':' avail dot') + (isToday?' today':'') + (isSel?' sel':'');
+    el.textContent = d;
+    if(!isPast&&!isWE) el.onclick = ()=>selDay=== d&&m===curDate.getMonth() ? null : pickDay(d);
+    grid.appendChild(el);
+  }
+}
+
+function pickDay(d) {
+  selDay=d; selSlot=null; renderCal();
+  const tw=document.getElementById('twrap');
+  tw.style.display='block';
+  document.getElementById('tlbl').textContent = d+' '+MONTHS[curDate.getMonth()]+' — Müsait Saatler';
+  document.getElementById('bbtn').style.dis
