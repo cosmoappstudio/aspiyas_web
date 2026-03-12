@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
  * Veri artık cache'siz çekildiği için her istekte taze veri gelir.
  */
 export async function revalidatePages() {
-  revalidatePath("/", "layout");
+  revalidatePath("/");
   revalidatePath("/hizmetler");
   revalidatePath("/hakkimizda");
   revalidatePath("/iletisim");
