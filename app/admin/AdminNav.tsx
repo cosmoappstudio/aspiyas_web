@@ -10,6 +10,7 @@ const navItems = [
   { href: "/admin/faq", icon: "❓", label: "SSS" },
   { href: "/admin/brands", icon: "◈", label: "Referans Markalar" },
   { href: "/admin/partners", icon: "▣", label: "Partnerler" },
+  { href: "/admin/app-studio", icon: "◆", label: "App Studio" },
   { href: "/admin/stats", icon: "#", label: "İstatistikler" },
   { href: "/admin/contact-info", icon: "✉", label: "İletişim Bilgileri" },
   { href: "/admin/site-settings", icon: "⚙", label: "Site Ayarları" },

@@ -11,4 +11,5 @@ export async function revalidatePages() {
   revalidatePath("/hizmetler");
   revalidatePath("/hakkimizda");
   revalidatePath("/iletisim");
+  revalidatePath("/app-studio");
 }
